@@ -1,12 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Malefashion.DAL;
+using Malefashion.Models.ViewModels;
+using Malefashion.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Malefashion.Controllers
 {
 	public class HomeController : Controller
 	{
-		public IActionResult Index()
+		private readonly AppDbContext _context;
+
+		public HomeController(AppDbContext context)
+        {
+			_context = context;
+		}
+		public async Task<IActionResult> Index()
 		{
-			return View();
+			List<Slide> slides = await _context.Slides.OrderBy(s => s.Order).ToListAsync();
+			
+			HomeVM vm = new()
+			{
+				Slides = slides
+				
+			};
+			return View(vm);
 		}
 	}
 }

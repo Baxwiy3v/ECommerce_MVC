@@ -140,3 +140,5 @@ C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\obj\Debug\net6.0\ref
 C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\obj\Debug\net6.0\Malefashion.pdb
 C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\obj\Debug\net6.0\Malefashion.genruntimeconfig.cache
 C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\obj\Debug\net6.0\ref\Malefashion.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
