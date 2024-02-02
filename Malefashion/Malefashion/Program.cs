@@ -1,3 +1,4 @@
+using Malefashion;
 using Malefashion.DAL;
 using Malefashion.Models;
 using Microsoft.AspNetCore.Identity;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDbContext>(opt=>opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddDbConfig(builder.Configuration);
 builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
 {
 	opt.Password.RequireNonAlphanumeric=false;
