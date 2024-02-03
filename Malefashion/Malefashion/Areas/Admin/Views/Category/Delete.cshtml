@@ -1,0 +1,10 @@
+﻿@model Category
+<form asp-action="Delete" asp-controller="Category" class="text-center" style="font-size: 16px; color: black;">
+    <h3>Bu kateqoriyanı silmək istədiyinizə əminsiniz?</h3>
+    <input type="hidden" asp-for="@Model.Id" />
+    <input type="hidden" name="confirim" value="true" />
+    <input type="submit" value="Yes" class="l btn btn-success" />
+    <a asp-action="Index" asp-controller="Category" class=" btn btn-danger">No</a>
+</form>
+
+

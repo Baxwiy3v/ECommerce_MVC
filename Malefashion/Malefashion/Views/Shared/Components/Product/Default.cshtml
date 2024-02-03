@@ -9,7 +9,11 @@
             <div class="product__item">
                 <div class="product__item__pic set-bg">
                     <span><img src="~/img/product/@product.ProductImages.FirstOrDefault(pi=>pi.IsPrimary==true).Url "  /></span>
-             
+                    
+                    <ul class="product__hover">
+                        <li> <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a></li>
+                       
+                    </ul>
                 </div>
                 <div class="product__item__text">
                     <a class="h6 text-decoration-none text-truncate" asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id">@product.Name</a><br>
@@ -24,17 +28,7 @@
                     <h6 class="text-muted ml-2">
                         <del>@(product.OldPrice != null ? $"${product.OldPrice}" : "")</del>
                     </h6>
-               @*      <div class="product__color__select">
-                        <label for="pc-1">
-                            <input type="radio" id="pc-1">
-                        </label>
-                        <label class="active black" for="pc-2">
-                            <input type="radio" id="pc-2">
-                        </label>
-                        <label class="grey" for="pc-3">
-                            <input type="radio" id="pc-3">
-                        </label>
-                    </div> *@
+                  
                 </div>
             </div>
         </div>
