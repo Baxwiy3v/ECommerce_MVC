@@ -15,10 +15,22 @@ namespace Malefashion.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page)
         {
-            List<Color> colors = await _context.Colors.Include(c => c.ProductColors).ToListAsync();
-            return View(colors);
+			double count = await _context.Colors.CountAsync();
+
+			List<Color> colors = await _context.Colors.Skip(page * 3).Take(3).Include(c => c.ProductColors).ToListAsync();
+
+			PaginationVM<Color> pagination = new()
+			{
+				TotalPage = Math.Ceiling(count / 3),
+
+				CurrentPage = page,
+
+				Items = colors
+			};
+
+			return View(pagination);
         }
         public IActionResult Create()
         {

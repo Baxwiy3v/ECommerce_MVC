@@ -15,12 +15,21 @@ namespace Malefashion.Areas.Admin.Controllers
         {
 			_context = context;
 		}
-        public async Task<IActionResult>  Index()
+        public async Task<IActionResult>  Index(int page)
 		{
-			List<Category> categories= await _context.Categories.Include(p=>p.Products).ToListAsync();
+            double count = await _context.Categories.CountAsync();
 
+            List<Category> categories= await _context.Categories.Skip(page * 3).Take(3).Include(p=>p.Products).ToListAsync();
 
-			return View(categories);
+            PaginationVM<Category> pagination = new()
+            {
+                TotalPage = Math.Ceiling(count / 3),
+
+                CurrentPage = page,
+
+                Items = categories
+            };
+            return View(pagination);
 		}
 		public IActionResult Create()
 		{
