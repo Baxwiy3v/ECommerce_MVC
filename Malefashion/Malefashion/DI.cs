@@ -9,7 +9,7 @@ namespace Malefashion
         public static IServiceCollection AddDbConfig(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<AppDbContext>(o => o.UseSqlServer(configuration.GetConnectionString("Default")));
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            
 
             return services;
         }

@@ -239,7 +239,7 @@
 					@foreach (Product product in Model.Items)
 					{
 						<div class="col-lg-4 col-md-6 col-sm-6">
-							<div class="product__item">
+							<div class="product__item ">
 								<div class="product__item__pic set-bg">
 									<span><img src="~/img/product/@product.ProductImages.FirstOrDefault(pi=>pi.IsPrimary==true).Url " /></span><br>
 
@@ -249,18 +249,19 @@
 									</ul>
 								</div>
 								<div class="product__item__text">
-									<a class="h6 text-decoration-none text-truncate" asp-action="Detail" asp-route-id="@product.Id">@product.Name</a>
-									<div class="rating">
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-										<i class="fa fa-star-o"></i>
-									</div>
+									<a class="h6 text-decoration-none text-truncate" asp-action="Detail" asp-route-id="@product.Id">@product.Name</a><br>
+								
 									<h5>$@product.Price</h5>
 									<h6 class="text-muted ml-2">
 										<del>@(product.OldPrice != null ? $"${product.OldPrice}" : "")</del>
 									</h6>
+									<div class="rating">
+										<i class="fa text-warning fa-star mr-1"></i>
+										<i class="fa text-warning fa-star mr-1"></i>
+										<i class="fa text-warning fa-star mr-1"></i>
+										<i class="fa text-warning fa-star mr-1"></i>
+										<i class="fa text-warning fa-star mr-1"></i>
+									</div>
 
 								</div>
 							</div>
