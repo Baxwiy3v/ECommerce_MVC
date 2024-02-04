@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "yJNWMbkprwPlVcV4Ljoj5AJAyfRJnPibzbaTUN8ze1Q=",
+  "Hash": "SK6mKUAiDA1GPlVUHWUNggYDywO540UqobrpkylACvk=",
   "Source": "Malefashion",
   "BasePath": "_content/Malefashion",
   "Mode": "Default",
@@ -3245,6 +3245,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\payment.png"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\18a1f5fa-9099-4398-b3dd-692258493ec1.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/product/18a1f5fa-9099-4398-b3dd-692258493ec1.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\product\\18a1f5fa-9099-4398-b3dd-692258493ec1.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\d99d1164-d872-42e9-9fc8-ed15c31b5466.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/product/d99d1164-d872-42e9-9fc8-ed15c31b5466.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\product\\d99d1164-d872-42e9-9fc8-ed15c31b5466.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\product-1.jpg",

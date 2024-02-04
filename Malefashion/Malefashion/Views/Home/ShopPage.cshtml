@@ -43,6 +43,7 @@
 									<div class="card-body">
 										<div class="shop__sidebar__categories">
 											<ul class="nice-scroll">
+												
 												@foreach (var item in Model.Items)
 												{
 
@@ -51,13 +52,13 @@
 
 															<div class="flex-fill pl-3">
 
-																<h6> <span > @item.Category.Name : </span>  <small class="text-body">@item.Category.Products.Count @(item.Category.Products.Count > 1 ? "Products" : "Product")</small></h6>
+																<h6> <span> @item.Category.Name  </span>  <small class="text-body">(@item.Category.Products.Count) </small></h6>
 															</div>
 														</div>
 													</a>
 
 												}
-
+												
 											</ul>
 										</div>
 									</div>
