@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Products</h4>
-                    <a class="btn btn-success btn-info" asp-controller="Product" asp-action="Create">Create Product</a>
+                    <a class="btn btn-inverse-success" asp-controller="Product" asp-action="Create">Create Product</a>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -55,8 +55,8 @@
                                             @product.Category.Name
                                         </td>
                                         <td>
-                                            <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-warning btn-info"> <i class="mdi mdi-pencil"></i> </a>
-                                            <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-info"> <i class="mdi mdi-delete"></i> </a>
+                                            <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-inverse-warning"> <i class="mdi mdi-pencil"></i> </a>
+                                            <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-inverse-danger"> <i class="mdi mdi-delete"></i> </a>
                                           
                                         </td>
                                     </tr>

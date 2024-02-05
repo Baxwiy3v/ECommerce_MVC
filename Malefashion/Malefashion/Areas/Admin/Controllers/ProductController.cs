@@ -48,6 +48,21 @@ namespace Malefashion.Areas.Admin.Controllers
 				productVM.Tags = await _context.Tags.ToListAsync();
 				return View(productVM);
 			}
+
+			bool existed= await _context.Products.AnyAsync(p=>p.Name.Trim().ToLower()==productVM.Name.Trim().ToLower());
+
+			if (existed)
+			{
+				productVM.Categories = await _context.Categories.ToListAsync();
+				productVM.Sizes = await _context.Sizes.ToListAsync();
+				productVM.Colors = await _context.Colors.ToListAsync();
+				productVM.Tags = await _context.Tags.ToListAsync();
+				ModelState.AddModelError("Name", "This name already exists");
+				return View(productVM);
+
+			}
+
+
 			bool result = await _context.Categories.AnyAsync(c => c.Id == productVM.CategoryId);
 			if (!result)
 			{
@@ -127,6 +142,7 @@ namespace Malefashion.Areas.Admin.Controllers
 				Price = productVM.Price,
 				CategoryId = (int)productVM.CategoryId,
 				Description = productVM.Description,
+				SKU = productVM.SKU,
 				ProductTags = new(),
 				ProductColors = new(),
 				ProductSizes = new(),
@@ -221,6 +237,7 @@ namespace Malefashion.Areas.Admin.Controllers
 			{
 				Name = product.Name,
 				Description = product.Description,
+				SKU = product.SKU,
 				Price = product.Price,
 				CategoryId = product.CategoryId,
 				ProductImages = product.ProductImages,
@@ -403,6 +420,7 @@ namespace Malefashion.Areas.Admin.Controllers
 
 			existed.Name = productVM.Name;
 			existed.Description = productVM.Description;
+			existed.SKU = productVM.SKU;
 			if (productVM.Price != existed.Price) existed.OldPrice = existed.Price;
 
 			existed.Price = productVM.Price;

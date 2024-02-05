@@ -12,10 +12,10 @@ namespace Malefashion.Configurations
             builder.HasIndex(s => s.Title).IsUnique();
 
             builder.Property(s => s.SubTitle).IsRequired().HasMaxLength(50);
-            builder.HasIndex(s => s.SubTitle).IsUnique();
+
 
             builder.Property(s => s.Description).IsRequired(false).HasMaxLength(100);
-            builder.Property(s => s.ImageUrl).IsRequired();
+
 
             builder.HasIndex(s => s.Order).IsUnique();
         }

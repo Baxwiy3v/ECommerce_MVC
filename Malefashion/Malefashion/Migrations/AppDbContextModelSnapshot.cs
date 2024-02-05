@@ -211,6 +211,10 @@ namespace Malefashion.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(6,2)");
 
+                    b.Property<string>("SKU")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("UpdatedTime")
                         .HasColumnType("datetime2");
 
@@ -419,9 +423,6 @@ namespace Malefashion.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Order")
-                        .IsUnique();
-
-                    b.HasIndex("SubTitle")
                         .IsUnique();
 
                     b.HasIndex("Title")
