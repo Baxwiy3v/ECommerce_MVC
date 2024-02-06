@@ -73,6 +73,10 @@ public class SlideController : Controller
 		}
 		string fileName = await slideVM.Photo.CreateFile(_env.WebRootPath, "img", "hero");
 		if (slideVM.ButtonTitle is null) { slideVM.ButtonTitle = "Shop Now"; }
+		if (slideVM.FbLink is null) { slideVM.FbLink = "https://www.facebook.com/"; }
+		if (slideVM.IgLink is null) { slideVM.IgLink = "https://www.instagram.com/"; }
+		if (slideVM.TwLink is null) { slideVM.TwLink = "https://twitter.com/login"; }
+		if (slideVM.PtLink is null) { slideVM.PtLink = "https://www.pinterest.com/"; }
 
 		Slide slide = new Slide
 		{
@@ -86,31 +90,36 @@ public class SlideController : Controller
 			FbLink = slideVM.FbLink,
 			IgLink = slideVM.IgLink,
 			TwLink = slideVM.TwLink
-
-
 		};
-
 		await _context.Slides.AddAsync(slide);
 		await _context.SaveChangesAsync();
 		return RedirectToAction(nameof(Index));
 	}
 
-	public async Task<IActionResult> Delete(int id)
+	public async Task<IActionResult> Delete(int id, bool confirim)
 	{
 		if (id <= 0) return BadRequest();
-		Slide slide = await _context.Slides.FirstOrDefaultAsync(s => s.Id == id);
+		Slide? slide = await _context.Slides.FirstOrDefaultAsync(s => s.Id == id);
 		if (slide == null) return NotFound();
+		if (confirim)
+		{
 
-		slide.ImageUrl.DeleteFile(_env.WebRootPath, "img", "hero");
-		_context.Slides.Remove(slide);
-		await _context.SaveChangesAsync();
-		return RedirectToAction(nameof(Index));
+			slide.ImageUrl.DeleteFile(_env.WebRootPath, "img", "hero");
+			_context.Slides.Remove(slide);
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
+		else
+		{
+
+			return View(slide);
+		}
 	}
 
 	public async Task<IActionResult> Update(int id)
 	{
 		if (id <= 0) return BadRequest();
-		Slide slide = await _context.Slides.FirstOrDefaultAsync(c => c.Id == id);
+		Slide? slide = await _context.Slides.FirstOrDefaultAsync(c => c.Id == id);
 		if (slide is null) return NotFound();
 
 		UpdateSlideVM vm = new UpdateSlideVM
@@ -121,20 +130,17 @@ public class SlideController : Controller
 			Order = slide.Order,
 			ButtonTitle = slide.ButtonTitle,
 			ImageUrl = slide.ImageUrl
-
-
 		};
 
 		return View(vm);
 	}
-
 
 	[HttpPost]
 	public async Task<IActionResult> Update(int id, UpdateSlideVM slidevm)
 	{
 		if (!ModelState.IsValid) return View(slidevm);
 
-		Slide existed = await _context.Slides.FirstOrDefaultAsync(c => c.Id == id);
+		Slide? existed = await _context.Slides.FirstOrDefaultAsync(c => c.Id == id);
 
 		if (existed is null) return NotFound();
 
@@ -145,7 +151,7 @@ public class SlideController : Controller
 			
 			return View(slidevm);
 		}
-		bool order = await _context.Slides.AnyAsync(c => c.Order == slidevm.Order );
+		bool order = await _context.Slides.AnyAsync(c => c.Order == slidevm.Order && c.Id!=id);
 		if (order)
 		{
 			ModelState.AddModelError("Order", "There is already such Order");
@@ -176,10 +182,7 @@ public class SlideController : Controller
 		existed.SubTitle = slidevm.SubTitle;
 		existed.Order = slidevm.Order;
 
-
-
 		await _context.SaveChangesAsync();
-
 		return RedirectToAction(nameof(Index));
 	}
 		

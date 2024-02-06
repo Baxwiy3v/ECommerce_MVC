@@ -19,10 +19,21 @@ namespace Malefashion.Areas.Admin.Controllers
 			_context = context;
 			_env = env;
 		}
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int page)
 		{
-			var products = await _context.Products.Include(p => p.ProductImages).Include(p => p.Category).ToListAsync();
-			return View(products);
+			double count = await _context.Products.CountAsync();
+
+			List<Product> products = await _context.Products.Skip(page * 3).Take(3).Include(p => p.ProductImages).Include(p => p.Category).ToListAsync();
+
+			PaginationVM<Product> pagination = new()
+			{
+				TotalPage = Math.Ceiling(count / 3),
+
+				CurrentPage = page,
+
+				Items = products
+			};
+			return View(pagination);
 		}
 		public async Task<IActionResult> Create()
 		{
@@ -209,18 +220,29 @@ namespace Malefashion.Areas.Admin.Controllers
 
 			return RedirectToAction(nameof(Index));
 		}
-		public async Task<IActionResult> Delete(int id)
+		public async Task<IActionResult> Delete(int id,bool confirim)
 		{
 			if (id <= 0) return BadRequest();
 			var existed = await _context.Products.Include(p => p.ProductImages).FirstOrDefaultAsync(c => c.Id == id);
 			if (existed is null) return NotFound();
-			foreach (ProductImage image in existed.ProductImages)
+
+			if (confirim)
 			{
-				image.Url.DeleteFile(_env.WebRootPath, "img", "product");
+
+				foreach (ProductImage image in existed.ProductImages)
+				{
+					image.Url.DeleteFile(_env.WebRootPath, "img", "product");
+				}
+				_context.Products.Remove(existed);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
 			}
-			_context.Products.Remove(existed);
-			await _context.SaveChangesAsync();
-			return RedirectToAction(nameof(Index));
+			else
+			{
+
+				return View(existed);
+			}
+			
 		}
 
 		public async Task<IActionResult> Update(int id)
@@ -275,14 +297,7 @@ namespace Malefashion.Areas.Admin.Controllers
 			if (existed is null) return NotFound();
 
 			bool result = await _context.Products.AnyAsync(c => c.CategoryId == productVM.CategoryId);
-			if (!result)
-			{
-				productVM.Categories = await _context.Categories.ToListAsync();
-				productVM.Sizes = await _context.Sizes.ToListAsync();
-				productVM.Colors = await _context.Colors.ToListAsync();
-				productVM.Tags = await _context.Tags.ToListAsync();
-				return View(productVM);
-			}
+		
 			foreach (int idS in productVM.SizeIds)
 			{
 				bool sizeResult = await _context.Sizes.AnyAsync(t => t.Id == idS);
@@ -323,7 +338,7 @@ namespace Malefashion.Areas.Admin.Controllers
 				}
 			}
 
-			result = _context.Products.Any(c => c.Name == productVM.Name && c.Id != id);
+			 result = _context.Products.Any(c => c.Name == productVM.Name && c.Id != id);
 			if (result)
 			{
 				productVM.Categories = await _context.Categories.ToListAsync();
@@ -345,7 +360,7 @@ namespace Malefashion.Areas.Admin.Controllers
 					ModelState.AddModelError("MainPhoto", "File type is not valid");
 					return View(productVM);
 				}
-				if (!productVM.MainPhoto.ValidateSize(6))
+				if (!productVM.MainPhoto.ValidateSize(4))
 				{
 					productVM.Categories = await _context.Categories.ToListAsync();
 					productVM.Sizes = await _context.Sizes.ToListAsync();

@@ -4,135 +4,124 @@ using Malefashion.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Malefashion.Areas.Admin.Controllers
+namespace Malefashion.Areas.Admin.Controllers;
+
+[Area("Admin")]
+public class CategoryController : Controller
 {
-	[Area("Admin")]
-	public class CategoryController : Controller
+	private readonly AppDbContext _context;
+
+	public CategoryController(AppDbContext context)
 	{
-		private readonly AppDbContext _context;
+		_context = context;
+	}
+	public async Task<IActionResult> Index(int page)
+	{
+		double count = await _context.Categories.CountAsync();
 
-		public CategoryController(AppDbContext context)
-        {
-			_context = context;
-		}
-        public async Task<IActionResult>  Index(int page)
+		List<Category> categories = await _context.Categories.Skip(page * 3).Take(3).Include(p => p.Products).ToListAsync();
+
+		PaginationVM<Category> pagination = new()
 		{
-            double count = await _context.Categories.CountAsync();
+			TotalPage = Math.Ceiling(count / 3),
 
-            List<Category> categories= await _context.Categories.Skip(page * 3).Take(3).Include(p=>p.Products).ToListAsync();
+			CurrentPage = page,
 
-            PaginationVM<Category> pagination = new()
-            {
-                TotalPage = Math.Ceiling(count / 3),
+			Items = categories
+		};
+		return View(pagination);
+	}
+	public IActionResult Create()
+	{
+		return View();
+	}
+	[HttpPost]
+	public async Task<IActionResult> Create(CreateCategoryVM categoryVM)
+	{
+		if (!ModelState.IsValid) return View(categoryVM);
 
-                CurrentPage = page,
+		bool result = await _context.Categories.AnyAsync(c => c.Name.Trim().ToLower() == categoryVM.Name.Trim().ToLower());
 
-                Items = categories
-            };
-            return View(pagination);
-		}
-		public IActionResult Create()
+		if (result)
 		{
-	
-
-			return View();
+			ModelState.AddModelError("Name", "This name exists");
+			return View(categoryVM);
 		}
-		[HttpPost]
-		public async Task<IActionResult> Create(CreateCategoryVM categoryVM)
+
+		Category category = new Category
 		{
-			if (!ModelState.IsValid) return View(categoryVM);
 
-			bool result=await _context.Categories.AnyAsync(c=>c.Name.Trim().ToLower()==categoryVM.Name.Trim().ToLower());
+			Name = categoryVM.Name
 
-			if (result)
-			{
-				ModelState.AddModelError("Name", "This name exists");
-				return View(categoryVM);
-			}
+		};
+		await _context.Categories.AddAsync(category);
+		await _context.SaveChangesAsync();
 
-			Category category=new Category
-			{ 
-			
-				Name = categoryVM.Name
-			
-			};
-            await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
-        public async Task<IActionResult> Update(int id)
-        {
-			if (id <= 0) return BadRequest();
+		return RedirectToAction(nameof(Index));
+	}
+	public async Task<IActionResult> Update(int id)
+	{
+		if (id <= 0) return BadRequest();
 
 
-			Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+		Category? category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
 
-			if (category == null) return NotFound();
-			
-			UpdateCategoryVM categoryVM = new UpdateCategoryVM
-			{ 
+		if (category == null) return NotFound();
 
-				Name = category.Name
-			};
-           
+		UpdateCategoryVM categoryVM = new UpdateCategoryVM
+		{
 
-       
+			Name = category.Name
+		};
 
-            return View(categoryVM);
-        }
+		return View(categoryVM);
+	}
 
-		[HttpPost]
+	[HttpPost]
 
-        public async Task<IActionResult> Update(int id,UpdateCategoryVM categoryVM)
-        {
-            if (id <= 0) return BadRequest();
+	public async Task<IActionResult> Update(int id, UpdateCategoryVM categoryVM)
+	{
+		if (id <= 0) return BadRequest();
 
-            if (!ModelState.IsValid) return View(categoryVM);
+		if (!ModelState.IsValid) return View(categoryVM);
 
-            Category existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+		Category? existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
 
-            if (existed == null) return NotFound();
+		if (existed == null) return NotFound();
 
-            bool result = await _context.Categories.AnyAsync(c => c.Name.Trim().ToLower() == categoryVM.Name.Trim().ToLower() && c.Id!=id);
+		bool result = await _context.Categories.AnyAsync(c => c.Name.Trim().ToLower() == categoryVM.Name.Trim().ToLower() && c.Id != id);
 
-            if (result)
-            {
-                ModelState.AddModelError("Name", "This name exists");
-                return View(categoryVM);
-            }
+		if (result)
+		{
+			ModelState.AddModelError("Name", "This name exists");
+			return View(categoryVM);
+		}
+		existed.Name = categoryVM.Name;
 
-			existed.Name = categoryVM.Name;
+		await _context.SaveChangesAsync();
+		return RedirectToAction(nameof(Index));
+	}
 
+
+	public async Task<IActionResult> Delete(int id, bool confirim)
+	{
+		if (id <= 0) return BadRequest();
+
+		var existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
+		if (existed is null) return NotFound();
+
+		if (confirim)
+		{
+
+			_context.Categories.Remove(existed);
 			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
+		else
+		{
 
-            return RedirectToAction(nameof(Index));
-        }
-
-
-        public async Task<IActionResult> Delete(int id, bool confirim)
-        {
-            if (id <= 0) return BadRequest();
-
-            var existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
-
-            if (existed is null) return NotFound();
-
-            if (confirim)
-            {
-
-                _context.Categories.Remove(existed);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-
-                return View(existed);
-            }
-        }
-
-
-
-    }
+			return View(existed);
+		}
+	}
 }

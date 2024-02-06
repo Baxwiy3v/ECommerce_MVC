@@ -1,0 +1,10 @@
+﻿@model Slide
+<form asp-action="Delete" asp-controller="Slide" class="text-center" style="font-size: 16px; color: black;">
+    <h3>Bu slaytı silmək istədiyinizə əminsiniz?</h3>
+    <input type="hidden" asp-for="@Model.Id" />
+    <input type="hidden" name="confirim" value="true" />
+    <input type="submit" value="Yes" class="l btn btn-success" />
+    <a asp-action="Index" asp-controller="Slide" class=" btn btn-danger">No</a>
+</form>
+
+
