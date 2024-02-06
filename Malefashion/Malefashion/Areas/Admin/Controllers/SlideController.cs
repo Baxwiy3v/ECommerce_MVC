@@ -19,10 +19,20 @@ public class SlideController : Controller
 
 		_env = env;
 	}
-	public async Task<IActionResult> Index()
-	{
-		var slides = await _context.Slides.ToListAsync();
-		return View(slides);
+	public async Task<IActionResult> Index(int page)
+    {
+        double count = await _context.Slides.CountAsync();
+
+        List<Slide> slides = await _context.Slides.Skip(page * 3).Take(3).ToListAsync();
+        PaginationVM<Slide> pagination = new()
+        {
+            TotalPage = Math.Ceiling(count / 3),
+
+            CurrentPage = page,
+
+            Items = slides
+        };
+        return View(pagination);
 	}
 	public IActionResult Create()
 	{

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Malefashion.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class BlogController : Controller
     {
         private readonly AppDbContext _context;

@@ -1,6 +1,46 @@
 ﻿@model DetailVM
 
 <!-- Shop Details Section Begin -->
+<style>
+	.selector-wrap {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin: 10px;
+		border-radius: 10px;
+		padding: 10px;
+		width: 200px;
+	}
+
+	.selector-title {
+		font-weight: bold;
+		font-size: 18px;
+		color: #333;
+	}
+
+	.nice-select {
+		appearance: none;
+		border: none;
+		background: #eee;
+		padding: 5px 10px;
+		font-size: 16px;
+		color: #333;
+		cursor: pointer;
+	}
+
+	.rounded-0 {
+		border-radius: 0;
+	}
+
+	.border-bottom-0 {
+		border-bottom: none;
+
+
+	}
+
+
+
+</style>
 
 <div class="container-fluid">
 	<div class="row px-xl-5">
@@ -39,55 +79,47 @@
 
 		<div class="col-lg-7 h-auto mb-30">
 			<div class="h-100 bg-light p-30">
-				<h4>@Model.Product.Name</h4>
-				<div class="rating">
-					<i class="fa text-warning fa-star mr-1"></i>
-					<i class="fa text-warning fa-star mr-1"></i>
-					<i class="fa text-warning fa-star mr-1"></i>
-					<i class="fa text-warning fa-star mr-1"></i>
-					<i class="fa text-warning fa-star mr-1"></i>
+				<div class="product-info">
+					<h4>@Model.Product.Name</h4>
+					<div class="rating">
+						<i class="fa text-warning fa-star mr-1"></i>
+						<i class="fa text-warning fa-star mr-1"></i>
+						<i class="fa text-warning fa-star mr-1"></i>
+						<i class="fa text-warning fa-star mr-1"></i>
+						<i class="fa text-warning fa-star mr-1"></i>
+					</div>
+					<h3 class="font-weight-semi-bold mb-4">$@Model.Product.Price</h3>
+
+					<p class="mb-4">
+						@Model.Product.Description
+					</p>
 				</div>
-				<h3 class="font-weight-semi-bold mb-4">$@Model.Product.Price</h3>
 
-				<p class="mb-4">
-					@Model.Product.Description
-				</p>
+				
 
-
-				@if (Model.Product.ProductSizes.Count() > 0)
-				{
-					<div class="d-flex mb-3">
-						<strong class="text-dark mr-3">Sizes:</strong>
-						<form>
-							@foreach (ProductSize ps in Model.Product.ProductSizes)
-							{
-								<div class="custom-control custom-radio custom-control-inline">
-									<input type="radio" class="custom-control-input" id="size-1" name="size">
-									<label class="custom-control-label" for="size-1">@ps.Size.Name</label>
-								</div>
-							}
-						</form>
-					</div>
-				}
+				<div class="selector-wrap size-option">
+					<span class="selector-title">Size</span>
+					<select class="nice-select wide rounded-0">
+						@foreach (ProductSize pSize in Model.Product.ProductSizes)
+						{
+							<option value="@pSize.Size.Name">@pSize.Size.Name</option>
+						}
+					</select>
+				</div>
 
 
-				@if (Model.Product.ProductColors.Count() > 0)
-				{
-					<div class="d-flex mb-4">
-						<strong class="text-dark mr-3">Colors:</strong>
-						<form>
+				<div class="selector-wrap color-option">
+					<span class="selector-title border-bottom-0">Color</span>
+					<select class="nice-select wide border-bottom-0 rounded-0">
+						@foreach (ProductColor pColor in Model.Product.ProductColors)
+						{
+							<option value="@pColor.Color.Name">@pColor.Color.Name</option>
+						}
+					</select>
+				</div>
 
-							@foreach (ProductColor color in Model.Product.ProductColors)
-							{
-								<div class="custom-control custom-radio custom-control-inline">
-									<input type="radio" class="custom-control-input" id="color-1" name="color">
-									<label class="custom-control-label" for="color-1">@color.Color.Name</label>
-								</div>
-							}
+				<br />
 
-						</form>
-					</div>
-				}
 				<div class="product__details__cart__option">
 					<div class="quantity">
 						<div class="pro-qty">
@@ -98,10 +130,12 @@
 
 					<div class="product__details__last__option">
 
-						<span>SKU:</span> 
-						
+						<span class="title">SKU:</span>
+						<a>@Model.Product.SKU</a>
+
 						<a></a>
 					</div>
+
 					<div class="product__details__last__option">
 
 						
@@ -123,6 +157,7 @@
 
 			</div>
 		</div>
+
 	</div>
 	<div class="row px-xl-5">
 		<div class="col-lg-12">
@@ -148,12 +183,14 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="tabs-5" role="tabpanel">
 						<div class="product__details__tab__content">
-							<p class="note">
-								Nam tempus turpis at metus scelerisque placerat nulla deumantos
-								solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis
-								ut risus. Sedcus faucibus an sullamcorper mattis drostique des commodo
-								pharetras loremos.
-							</p>
+							
+							<div class="product__details__tab__content__item">
+								<h5>Description </h5>
+								<p>
+									@Model.Product.Description
+								</p>
+							
+							</div>
 							<div class="product__details__tab__content__item">
 								<h5>Products Infomation</h5>
 								<p>
@@ -278,24 +315,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <section class="related spad">
 	<div class="container">
 		<div class="row">
@@ -314,18 +333,18 @@
 						</div>
 						<div class="product__item__text">
 							<a class="h6 text-decoration-none text-truncate" asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id">@product.Name</a><br>
-							<div class="rating">
-								<i class="fa fa-star-o"></i>
-								<i class="fa fa-star-o"></i>
-								<i class="fa fa-star-o"></i>
-								<i class="fa fa-star-o"></i>
-								<i class="fa fa-star-o"></i>
-							</div>
+						
 							<h5>$@product.Price</h5>
 							<h6 class="text-muted ml-2">
 								<del>@(product.OldPrice != null ? $"${product.OldPrice}" : "")</del>
 							</h6>
-
+							<div class="rating">
+								<i class="fa text-warning fa-star mr-1"></i>
+								<i class="fa text-warning fa-star mr-1"></i>
+								<i class="fa text-warning fa-star mr-1"></i>
+								<i class="fa text-warning fa-star mr-1"></i>
+								<i class="fa text-warning fa-star mr-1"></i>
+							</div>
 						</div>
 					</div>
 				</div>
