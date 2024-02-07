@@ -693,6 +693,22 @@
       "PackagePath": "staticwebassets\\img\\breadcrumb-bg.jpg"
     },
     {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\1-1-1919x388.jpg",
+      "PackagePath": "staticwebassets\\img\\breadcrumb\\bg\\1-1-1919x388.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\245-2458089_loginbutton-login-button-logo-png.png",
+      "PackagePath": "staticwebassets\\img\\breadcrumb\\bg\\245-2458089_loginbutton-login-button-logo-png.png"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\blog2-image1.png",
+      "PackagePath": "staticwebassets\\img\\breadcrumb\\bg\\blog2-image1.png"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\login.jpg",
+      "PackagePath": "staticwebassets\\img\\breadcrumb\\bg\\login.jpg"
+    },
+    {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\clients\\client-1.png",
       "PackagePath": "staticwebassets\\img\\clients\\client-1.png"
     },
@@ -813,16 +829,28 @@
       "PackagePath": "staticwebassets\\img\\product-sale.png"
     },
     {
-      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\163e6760-eb0e-42e2-82dd-e191a449e16f.jpg",
-      "PackagePath": "staticwebassets\\img\\product\\163e6760-eb0e-42e2-82dd-e191a449e16f.jpg"
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\1fc693e7-de9f-46fa-ae3f-8616a60b0493.jpg",
+      "PackagePath": "staticwebassets\\img\\product\\1fc693e7-de9f-46fa-ae3f-8616a60b0493.jpg"
     },
     {
-      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\60dc3fc8-b526-4096-a01a-29a1b91a7869.jpg",
-      "PackagePath": "staticwebassets\\img\\product\\60dc3fc8-b526-4096-a01a-29a1b91a7869.jpg"
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\4587fff1-9224-483f-85ec-0e6a721b0f4a.jpg",
+      "PackagePath": "staticwebassets\\img\\product\\4587fff1-9224-483f-85ec-0e6a721b0f4a.jpg"
     },
     {
-      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\d3405b95-f9ff-45ef-a6c2-907e33bcd8b3.jpg",
-      "PackagePath": "staticwebassets\\img\\product\\d3405b95-f9ff-45ef-a6c2-907e33bcd8b3.jpg"
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\8ab61e4a-831e-4521-8b39-07d26976bafa.jpg",
+      "PackagePath": "staticwebassets\\img\\product\\8ab61e4a-831e-4521-8b39-07d26976bafa.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\8de927a5-99e6-4930-97ce-1035d03decd8.jpg",
+      "PackagePath": "staticwebassets\\img\\product\\8de927a5-99e6-4930-97ce-1035d03decd8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\917cc4cd-95ef-482d-aa96-08d814b51166.jpg",
+      "PackagePath": "staticwebassets\\img\\product\\917cc4cd-95ef-482d-aa96-08d814b51166.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\a46bb81d-7948-4d33-9019-0f92c9b04b66.jpg",
+      "PackagePath": "staticwebassets\\img\\product\\a46bb81d-7948-4d33-9019-0f92c9b04b66.jpg"
     },
     {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\shop-details\\details-payment.png",

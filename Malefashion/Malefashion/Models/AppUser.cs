@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Malefashion.Enumerations;
+using Microsoft.AspNetCore.Identity;
 
 namespace Malefashion.Models
 {
@@ -7,5 +8,9 @@ namespace Malefashion.Models
         public string Name { get; set; }
 
 		public string Surname { get; set; }
-	}
+
+        public Gender Gender { get; set; }
+        public List<BasketItem> BasketItems { get; set; }
+        public List<Order> Orders { get; set; }
+    }
 }

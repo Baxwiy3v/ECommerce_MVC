@@ -24,10 +24,12 @@ namespace Malefashion.DAL
         public DbSet<ProductSize> ProductSizes { get; set; }
         public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
+        public DbSet<Setting> Settings { get; set; }
 
+		public DbSet<BasketItem> BasketItems { get; set; }
+		public DbSet<Order> Orders { get; set; }
 
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
