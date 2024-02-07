@@ -127,7 +127,7 @@
 							<input type="text" value="1">
 						</div>
 					</div>
-					<a href="#" class="primary-btn">add to cart</a>
+					<a asp-controller="Basket" asp-action="AddBasket" asp-route-id="@Model.Product.Id" class="primary-btn">add to cart</a>
 
 					<div class="product__details__last__option">
 
@@ -333,9 +333,9 @@
 								<li> <a class="btn btn-outline-dark btn-square" asp-controller="Basket" asp-action="AddBasket" asp-route-id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
 
 							</ul>
-						</div>
-						<div class="product__item__text">
-							<a class="h6 text-decoration-none text-truncate" asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id">@product.Name</a><br>
+						</div><br>
+						<div >
+							<a class="btn btn-outline-warning" asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id">@product.Name</a><br><br>
 
 							<h5>$@product.Price</h5>
 							<h6 class="text-muted ml-2">

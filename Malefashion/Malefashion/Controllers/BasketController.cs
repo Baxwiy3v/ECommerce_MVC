@@ -232,6 +232,8 @@ namespace Malefashion.Controllers
 			OrderVM orderVM = new OrderVM
 			{
 				BasketItems = user.BasketItems
+				
+				
 			};
 			return View(orderVM);
 		}

@@ -55,13 +55,13 @@
                                         </a>
                                     </td>
                                     <td class="product-thumbnail">
-                                        <a asp-action="Detail" asp-controller="Detail" asp-route-id="@item.Id">
+                                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id">
                                             <img style="width:150px; height:150px;" src="~/img/product/@item.Image"
                                                  alt="@item.Name" />
                                         </a>
                                     </td>
                                     <td class="product-name">
-                                        <a asp-action="Detail" asp-controller="Detail" asp-route-id="@item.Id">@item.Name</a>
+                                        <a  asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id">@item.Name</a>
                                     </td>
                                     <td class="product-price">
                                         <span class="amount">$@item.Price</span>
@@ -109,13 +109,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="cart__discount">
-                    <h6>Discount codes</h6>
-                    <form action="#">
-                        <input type="text" placeholder="Coupon code">
-                        <button type="submit">Apply</button>
-                    </form>
-                </div>
+               
                 <div class="cart__total">
                     <h6>Cart total</h6>
                     <ul>

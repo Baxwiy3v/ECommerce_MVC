@@ -53,16 +53,16 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li>
-                                    <a class="dropdown-item" href="my-account.html">@User.Identity.Name</a>
+                                    <a  href="my-account.html">@User.Identity.Name</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Log out</a>
+                                    <a  asp-action="Logout" asp-controller="Account">Log out</a>
                                 </li>
                             }
                             else
                             {
                                 <li>
-                                    <a class="dropdown-item" asp-action="Login" asp-controller="Account" asp-route-returnurl="@Context.Request.Path.Value">Login</a>
+                                    <a  asp-action="Login" asp-controller="Account" asp-route-returnurl="@Context.Request.Path.Value">Login</a>
 
                                 </li>
                                 <li>
