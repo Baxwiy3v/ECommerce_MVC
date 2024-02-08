@@ -563,6 +563,36 @@ namespace Malefashion.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("Malefashion.Models.WishList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("WishLists");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -811,6 +841,25 @@ namespace Malefashion.Migrations
                     b.Navigation("Tag");
                 });
 
+            modelBuilder.Entity("Malefashion.Models.WishList", b =>
+                {
+                    b.HasOne("Malefashion.Models.AppUser", "AppUser")
+                        .WithMany("WishLists")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Malefashion.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -867,6 +916,8 @@ namespace Malefashion.Migrations
                     b.Navigation("BasketItems");
 
                     b.Navigation("Orders");
+
+                    b.Navigation("WishLists");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Category", b =>

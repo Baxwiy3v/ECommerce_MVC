@@ -1,0 +1,65 @@
+﻿@model List<WishList>
+
+
+<!-- START SECTION BREADCRUMB -->
+
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Wish list</h4>
+                    <div class="breadcrumb__links">
+                        <a asp-action="Index" asp-controller="Home" >Home</a>
+                        <span>Wish list</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END SECTION BREADCRUMB -->
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+    <!-- START SECTION SHOP -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive wishlist_table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="product-thumbnail">&nbsp;</th>
+                                    <th class="product-name">Product</th>
+                                    <th class="product-price">Price</th>
+                                    <th class="product-stock-status">Stock Status</th>
+                                    <th class="product-remove">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td class="product-thumbnail"><a href="#"><img src="~/img/product/@item.Product.ProductImages.FirstOrDefault(pi=>pi.IsPrimary==true).Url " /></a></td>
+                                        <td class="product-name" data-title="Product"><a href="#">@item.Product.Name</a></td>
+                                        <td class="product-price" data-title="Price">$@item.Product.Price</td>
+                                        <td class="product-stock-status" data-title="Stock Status"><span class="badge badge-pill badge-success">In Stock</span></td>
+                                        <td class="product-remove" data-title="Remove"><a asp-controller="Home" asp-action="RemoveWishlist" asp-route-id="@item.Id"><i class="ti-close"></i></a></td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END SECTION SHOP -->
+
+
+</div>
+<!-- END MAIN CONTENT -->

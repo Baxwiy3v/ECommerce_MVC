@@ -244,7 +244,9 @@
 									<span><img src="~/img/product/@product.ProductImages.FirstOrDefault(pi=>pi.IsPrimary==true).Url " /></span><br>
 
 									<ul class="product__hover">
-										<li> <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a></li>
+										<li> <a class="btn btn-outline-warning" asp-action="AddBasket" asp-controller="Basket" asp-route-id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
+
+										<li><a class="btn btn-outline-warning" asp-action="AddWishlist" asp-controller="Home" asp-route-id="@product.Id"> <i class="fa fa-heart"></i></a></li>
 
 									</ul>
 								</div>

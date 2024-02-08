@@ -3,17 +3,21 @@ using Malefashion.Models.ViewModels;
 using Malefashion.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Malefashion.Controllers;
 
 public class HomeController : Controller
 {
     private readonly AppDbContext _context;
+	private readonly UserManager<AppUser> _userManager;
 
-    public HomeController(AppDbContext context)
+	public HomeController(AppDbContext context,UserManager<AppUser> userManager)
     {
         _context = context;
-    }
+		_userManager = userManager;
+	}
     public async Task<IActionResult> Index()
     {
         List<Slide> slides = await _context.Slides.OrderBy(s => s.Order).ToListAsync();
@@ -26,7 +30,32 @@ public class HomeController : Controller
         };
         return View(vm);
     }
+	[Authorize]
+	public IActionResult Wishlist()
+	{
+		var wishlist = _context.WishLists.Include(x => x.AppUser).Include(x => x.Product).ThenInclude(x => x.ProductImages).Where(x => x.AppUser.UserName == User.Identity.Name).ToList();
+		if (wishlist is null) wishlist = new();
+		return View(wishlist);
+	}
 
+	public async Task<IActionResult> RemoveWishlist(int id)
+	{
+		var item = await _context.WishLists.FirstOrDefaultAsync(x => x.Id == id);
+		if (item is null)
+			return NotFound();
+		var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+		if (item.AppUserId != user.Id)
+		{
+			return BadRequest();
+		}
+
+
+
+		_context.WishLists.Remove(item);
+		await _context.SaveChangesAsync();
+		return RedirectToAction("Wishlist");
+	}
 	public async Task<IActionResult> Blog()
 	{
 		List<Blog> blogs = await _context.Blogs.ToListAsync();
@@ -50,7 +79,32 @@ public class HomeController : Controller
         return View(vm);
     }
 
-	
+	[Authorize]
+	public async Task<IActionResult> AddWishlist(int id)
+	{
+		var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+		if (product is null)
+			return NotFound();
+		var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
+
+		var exist = await _context.WishLists.FirstOrDefaultAsync(x => x.AppUserId == user.Id && x.ProductId == product.Id);
+		if (exist is not null)
+		{
+			_context.WishLists.Remove(exist);
+			await _context.SaveChangesAsync();
+			return Redirect(Request.Headers["Referer"]);
+		}
+
+		WishList wishList = new()
+		{
+			Product = product,
+			AppUser = user
+		};
+		await _context.WishLists.AddAsync(wishList);
+		await _context.SaveChangesAsync();
+		return Redirect(Request.Headers["Referer"]);
+	}
 
 	public async Task<IActionResult> ShopPage(int page, int sortId, int? catId)
     {
