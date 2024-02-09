@@ -7,12 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Models\NewFolder\**" />
     <Compile Remove="wwwroot\assets\**" />
+    <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Models\NewFolder\**" />
     <Content Remove="wwwroot\assets\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Models\NewFolder\**" />
     <EmbeddedResource Remove="wwwroot\assets\**" />
+    <None Remove="Areas\Admin\Data\**" />
     <None Remove="Models\NewFolder\**" />
     <None Remove="wwwroot\assets\**" />
   </ItemGroup>
@@ -28,10 +32,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
   </ItemGroup>
 
   <ItemGroup>

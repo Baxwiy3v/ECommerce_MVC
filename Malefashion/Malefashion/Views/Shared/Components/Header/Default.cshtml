@@ -36,44 +36,47 @@
                 <a asp-action="Index" asp-controller="Home"><img src="~/img/logo.png" alt=""></a>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-6 col-md-3">
             <nav class="header__menu mobile-menu">
                 <ul>
+
                     <li class="active"><a asp-action="Index" asp-controller="Home">Home</a></li>
                     <li><a asp-action="ShopPage" asp-controller="Home">Shop</a></li>
                     <li><a asp-action="Blog" asp-controller="Home">Blog</a></li>
                     <li><a href="./contact.html">Contacts</a></li>
-                   
+                  
                     <li>
 
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Account
                         </button>
-                        <ul class="dropdown">
+                        <ul class="dropdown" >
 
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li>
-                                    <a  href="my-account.html">@User.Identity.Name</a>
+                                    <a >@User.Identity.Name</a>
                                 </li>
                                 <li>
-                                    <a  asp-action="Logout" asp-controller="Account">Log out</a>
+                                    <a class="text-danger" asp-action="Logout" asp-controller="Account">Log out</a>
                                 </li>
                             }
                             else
                             {
                                 <li>
-                                    <a  asp-action="Login" asp-controller="Account" asp-route-returnurl="@Context.Request.Path.Value">Login</a>
+                                    <a asp-action="Login" asp-controller="Account" asp-route-returnurl="@Context.Request.Path.Value">Login</a>
 
                                 </li>
                                 <li>
 
-                                    <a asp-action="Register" asp-controller="Account" >Register</a>
+                                    <a asp-action="Register" asp-controller="Account">Register</a>
                                 </li>
                             }
                         </ul>
                     </li>
+
                    
+                  
                 </ul>
             </nav>
         </div>
@@ -82,7 +85,9 @@
                 <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
                 <a asp-action="Wishlist" asp-controller="Home"><img src="~/img/icon/heart.png" alt=""></a>
                 <a asp-action="Index" asp-controller="Basket" ><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>
-                
+              
+               
+           
             </div>
         </div>
     </div>

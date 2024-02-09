@@ -136,7 +136,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("BasketItems", (string)null);
+                    b.ToTable("BasketItems");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Blog", b =>
@@ -174,7 +174,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Blogs", (string)null);
+                    b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Category", b =>
@@ -201,7 +201,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Color", b =>
@@ -224,7 +224,34 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors", (string)null);
+                    b.ToTable("Colors");
+                });
+
+            modelBuilder.Entity("Malefashion.Models.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Order", b =>
@@ -262,7 +289,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Product", b =>
@@ -307,7 +334,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Malefashion.Models.ProductColor", b =>
@@ -336,7 +363,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductColors", (string)null);
+                    b.ToTable("ProductColors");
                 });
 
             modelBuilder.Entity("Malefashion.Models.ProductImage", b =>
@@ -367,7 +394,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages", (string)null);
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("Malefashion.Models.ProductSize", b =>
@@ -396,7 +423,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ProductSizes", (string)null);
+                    b.ToTable("ProductSizes");
                 });
 
             modelBuilder.Entity("Malefashion.Models.ProductTag", b =>
@@ -425,7 +452,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("ProductTags", (string)null);
+                    b.ToTable("ProductTags");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Setting", b =>
@@ -452,7 +479,7 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settings", (string)null);
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Size", b =>
@@ -475,7 +502,7 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sizes", (string)null);
+                    b.ToTable("Sizes");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Slide", b =>
@@ -537,7 +564,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Title")
                         .IsUnique();
 
-                    b.ToTable("Slides", (string)null);
+                    b.ToTable("Slides");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Tag", b =>
@@ -560,7 +587,40 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("Malefashion.Models.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("Malefashion.Models.WishList", b =>
@@ -590,7 +650,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("WishLists", (string)null);
+                    b.ToTable("WishLists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -841,6 +901,17 @@ namespace Malefashion.Migrations
                     b.Navigation("Tag");
                 });
 
+            modelBuilder.Entity("Malefashion.Models.Team", b =>
+                {
+                    b.HasOne("Malefashion.Models.Department", "Department")
+                        .WithMany("Teams")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("Malefashion.Models.WishList", b =>
                 {
                     b.HasOne("Malefashion.Models.AppUser", "AppUser")
@@ -928,6 +999,11 @@ namespace Malefashion.Migrations
             modelBuilder.Entity("Malefashion.Models.Color", b =>
                 {
                     b.Navigation("ProductColors");
+                });
+
+            modelBuilder.Entity("Malefashion.Models.Department", b =>
+                {
+                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("Malefashion.Models.Order", b =>

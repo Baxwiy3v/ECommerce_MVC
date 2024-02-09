@@ -1,7 +1,4 @@
 ﻿
-
-
-
 namespace Malefashion.Areas.Admin.ViewModels;
 
 public class CreateSlideVM

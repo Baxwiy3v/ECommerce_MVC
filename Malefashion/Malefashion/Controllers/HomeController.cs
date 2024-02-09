@@ -30,7 +30,23 @@ public class HomeController : Controller
         };
         return View(vm);
     }
-	[Authorize]
+
+    public  async Task<IActionResult> About()
+    {
+        List<Team> teams=await _context.Teams.Include(d=>d.Department).ToListAsync();
+
+        return View(teams);
+    }
+
+    public async Task<IActionResult> Blog()
+    {
+        List<Blog> blogs = await _context.Blogs.ToListAsync();
+
+
+        return View(blogs);
+    }
+
+    [Authorize]
 	public IActionResult Wishlist()
 	{
 		var wishlist = _context.WishLists.Include(x => x.AppUser).Include(x => x.Product).ThenInclude(x => x.ProductImages).Where(x => x.AppUser.UserName == User.Identity.Name).ToList();
@@ -56,16 +72,35 @@ public class HomeController : Controller
 		await _context.SaveChangesAsync();
 		return RedirectToAction("Wishlist");
 	}
-	public async Task<IActionResult> Blog()
-	{
-		List<Blog> blogs = await _context.Blogs.ToListAsync();
 
-		
-		return View(blogs);
-	}
+    [Authorize]
+    public async Task<IActionResult> AddWishlist(int id)
+    {
+        var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+        if (product is null)
+            return NotFound();
+        var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
 
-	public async Task<IActionResult> Detail(int id)
+        var exist = await _context.WishLists.FirstOrDefaultAsync(x => x.AppUserId == user.Id && x.ProductId == product.Id);
+        if (exist is not null)
+        {
+            _context.WishLists.Remove(exist);
+            await _context.SaveChangesAsync();
+            return Redirect(Request.Headers["Referer"]);
+        }
+
+        WishList wishList = new()
+        {
+            Product = product,
+            AppUser = user
+        };
+        await _context.WishLists.AddAsync(wishList);
+        await _context.SaveChangesAsync();
+        return Redirect(Request.Headers["Referer"]);
+    }
+
+    public async Task<IActionResult> Detail(int id)
     {
         if (id <= 0) return BadRequest();
         Product product = await _context.Products.Include(c=>c.Category).Include(p => p.ProductTags).ThenInclude(pt => pt.Tag).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductImages).FirstOrDefaultAsync(p => p.Id == id);
@@ -79,32 +114,7 @@ public class HomeController : Controller
         return View(vm);
     }
 
-	[Authorize]
-	public async Task<IActionResult> AddWishlist(int id)
-	{
-		var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
-		if (product is null)
-			return NotFound();
-		var user = await _userManager.FindByNameAsync(User.Identity.Name);
-
-
-		var exist = await _context.WishLists.FirstOrDefaultAsync(x => x.AppUserId == user.Id && x.ProductId == product.Id);
-		if (exist is not null)
-		{
-			_context.WishLists.Remove(exist);
-			await _context.SaveChangesAsync();
-			return Redirect(Request.Headers["Referer"]);
-		}
-
-		WishList wishList = new()
-		{
-			Product = product,
-			AppUser = user
-		};
-		await _context.WishLists.AddAsync(wishList);
-		await _context.SaveChangesAsync();
-		return Redirect(Request.Headers["Referer"]);
-	}
+	
 
 	public async Task<IActionResult> ShopPage(int page, int sortId, int? catId)
     {

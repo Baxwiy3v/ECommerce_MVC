@@ -14,7 +14,6 @@ namespace Malefashion.DAL
 
 		public DbSet<Slide> Slides { get; set; }
         public DbSet<Category> Categories { get; set; }
-
 		public DbSet<Blog> Blogs { get; set; }
 		public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
@@ -25,11 +24,13 @@ namespace Malefashion.DAL
         public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<Setting> Settings { get; set; }
-
 		public DbSet<BasketItem> BasketItems { get; set; }
 		public DbSet<Order> Orders { get; set; }
 
-		public DbSet<WishList> WishLists { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Department> Departments { get; set; }
+
+        public DbSet<WishList> WishLists { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
