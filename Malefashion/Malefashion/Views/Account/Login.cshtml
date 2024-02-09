@@ -1,4 +1,4 @@
-﻿@using Malefashion.Enumerations;
+﻿
 @model LoginVM
 <main class="main-content">
 	<div class="breadcrumb-area breadcrumb-height"
@@ -17,23 +17,26 @@
 							<div class="input-group">
 								<div class="input-group-prepend bg-transparent">
 									<span class="input-group-text bg-transparent border-right-0">
-										<i class="mdi mdi-account-outline text-primary"></i>
+										<i class="fa fa-sign-in"></i>
 									</span>
 								</div>
 								<input type="text" class="form-control form-control-lg border-left-0" asp-for="UsernameOrEmail" placeholder="Username or email">
-								<span class="text-danger" asp-validation-for="UsernameOrEmail"></span>
+								
 							</div>
+							<span class="text-danger" asp-validation-for="UsernameOrEmail"></span>
 						</div>
 						<div class="form-group">
 							<label asp-for="Password">Password</label>
 							<div class="input-group">
 								<div class="input-group-prepend bg-transparent">
 									<span class="input-group-text bg-transparent border-right-0">
-										<i class="mdi mdi-lock-outline text-primary"></i>
+										<i class="fa fa-lock"></i>
 									</span>
 								</div>
 								<input type="password" class="form-control form-control-lg border-left-0" asp-for="Password" placeholder="Password">
+								
 							</div>
+							<span class="text-danger" asp-validation-for="Password"></span>
 						</div>
 						<div class="my-2 d-flex justify-content-between align-items-center">
 							<div class="form-check">

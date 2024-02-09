@@ -20,18 +20,37 @@ namespace Malefashion.ViewComponents
             {
                 case 1:
                     products = await
-                 _context.Products.Include(p => p.ProductImages)
+                 _context.Products
+                 .OrderBy(p => p.Name)
+                .Take(8)
+                .Include(p => p.ProductImages
+                .Where(pi => pi.IsPrimary != null))
                 .ToListAsync();
                     break;
                 case 2:
                     products = await
-                 _context.Products.Include(p => p.ProductImages)
-                 .OrderByDescending(p => p.CreatedTime)
+                 _context.Products
+                 .OrderByDescending(p => p.Price)
+                .Take(8)
+                .Include(p => p.ProductImages
+                .Where(pi => pi.IsPrimary != null))
                 .ToListAsync();
+                    break;
+                case 3:
+                    products = await
+                _context.Products
+                .OrderByDescending(p => p.Id)
+               .Take(8)
+               .Include(p => p.ProductImages
+               .Where(pi => pi.IsPrimary != null))
+               .ToListAsync();
                     break;
                 default:
                     products = await
-                _context.Products.Include(p => p.ProductImages)
+                _context.Products
+               .Take(8)
+               .Include(p => p.ProductImages
+               .Where(pi => pi.IsPrimary != null))
                .ToListAsync();
                     break;
             }

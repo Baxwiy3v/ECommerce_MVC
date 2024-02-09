@@ -10,8 +10,8 @@
                 <div class="breadcrumb__text">
                     <h4>Shopping Cart</h4>
                     <div class="breadcrumb__links">
-                        <a href="./index.html">Home</a>
-                        <a href="./shop.html">Shop</a>
+                        <a asp-action="Index" asp-controller="Home">Home</a>
+                        <a asp-action="ShopPage" asp-controller="Home">Shop</a>
                         <span>Shopping Cart</span>
                     </div>
                 </div>
@@ -26,15 +26,15 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="shopping__cart__table">
-                    <table>
+                    <table >
                         <thead>
                             <tr>
-                                <th class="product_remove">remove</th>
-                                <th class="product-thumbnail">images</th>
-                                <th class="cart-product-name">Product</th>
-                                <th class="product-price">Unit Price</th>
-                                <th class="product-quantity">Quantity</th>
-                                <th class="product-subtotal">Total</th>
+                                <th >Remove</th>
+                                <th >Images</th>
+                                <th >Product</th>
+                                <th >Unit Price</th>
+                                <th >Quantity</th>
+                                <th >Total</th>
                             </tr>
                         </thead>
                       
@@ -44,24 +44,19 @@
                                 total += item.SubTotal;
                                 <tr>
                                     <td class="product_remove">
-                                        <a asp-action="RemoveBasket" asp-controller="Basket" asp-route-id="@item.Id">
-                                            <i class="pe-7s-close"
-                                               data-tippy="Remove"
-                                               data-tippy-inertia="true"
-                                               data-tippy-animation="shift-away"
-                                               data-tippy-delay="50"
-                                               data-tippy-arrow="true"
-                                               data-tippy-theme="sharpborder"></i>
+                                        <a class="btn btn-outline-danger" asp-action="RemoveBasket" asp-controller="Basket" asp-route-id="@item.Id">
+                                            <i class="fa fa-times"></i>
+
                                         </a>
                                     </td>
                                     <td class="product-thumbnail">
-                                        <a asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id">
+                                        <a >
                                             <img style="width:150px; height:150px;" src="~/img/product/@item.Image"
                                                  alt="@item.Name" />
                                         </a>
                                     </td>
-                                    <td class="product-name">
-                                        <a  asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id">@item.Name</a>
+                                    <td >
+                                        <a class="text-dark" asp-action="Detail" asp-controller="Home" asp-route-id="@item.Id">@item.Name</a>
                                     </td>
                                     <td class="product-price">
                                         <span class="amount">$@item.Price</span>
@@ -69,7 +64,7 @@
                                     <td class="quantity">
                                         <div class="d-flex">
                                             <div style="margin-right:10px;">
-                                                <a asp-action="Decrement" asp-controller="Basket" asp-route-id="@item.Id">
+                                                <a class="text-danger" asp-action="Decrement" asp-controller="Basket" asp-route-id="@item.Id">
                                                     <i class="fa fa-minus"></i>
                                                 </a>
 
@@ -79,7 +74,7 @@
                                                        type="text" />
                                             </div>
                                             <div style="margin-left:10px;">
-                                                <a asp-controller="Basket" asp-action="AddBasket" asp-route-id="@item.Id" asp-route-controllerName="Basket">
+                                                <a class="text-success" asp-controller="Basket" asp-action="AddBasket" asp-route-id="@item.Id" asp-route-controllerName="Basket">
                                                     <i class="fa fa-plus"></i>
                                                 </a>
                                             </div>
@@ -97,15 +92,14 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="continue__btn">
-                            <a href="#">Continue Shopping</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="continue__btn update__btn">
-                            <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                            <a asp-action="ShopPage" asp-controller="Home">
+                                <i class="fa fa-forward"></i>
+                                Continue Shopping
+                            </a>
                         </div>
                     </div>
+               
                 </div>
             </div>
             <div class="col-lg-4">
@@ -117,7 +111,7 @@
                     </ul>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <a asp-controller="Basket" asp-action="Checkout">Proceed to checkout</a>
+                        <a class="btn btn-dark" asp-controller="Basket" asp-action="Checkout">Proceed to checkout</a>
                     }
                 </div>
             </div>

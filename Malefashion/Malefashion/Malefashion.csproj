@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\NewFolder\**" />
     <Compile Remove="wwwroot\assets\**" />
+    <Content Remove="Models\NewFolder\**" />
     <Content Remove="wwwroot\assets\**" />
+    <EmbeddedResource Remove="Models\NewFolder\**" />
     <EmbeddedResource Remove="wwwroot\assets\**" />
+    <None Remove="Models\NewFolder\**" />
     <None Remove="wwwroot\assets\**" />
   </ItemGroup>
 
@@ -28,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Models\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

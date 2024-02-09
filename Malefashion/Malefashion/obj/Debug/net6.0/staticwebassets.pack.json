@@ -709,6 +709,10 @@
       "PackagePath": "staticwebassets\\img\\breadcrumb\\bg\\login.jpg"
     },
     {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\register.jpg",
+      "PackagePath": "staticwebassets\\img\\breadcrumb\\bg\\register.jpg"
+    },
+    {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\clients\\client-1.png",
       "PackagePath": "staticwebassets\\img\\clients\\client-1.png"
     },
