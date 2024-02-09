@@ -1,0 +1,37 @@
+﻿@model CreateBlogVM
+<div class="content-wrapper">
+	<div class="row">
+		<div class="col-lg-12 grid-margin stretch-card">
+			<div class="card">
+				<div class="card-body">
+					<form class="forms-sample" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<label asp-for="Photo">Photo</label>
+							<input asp-for="Photo" class="form-control" id="Photo" placeholder="Photo">
+							<span class="text-danger" asp-validation-for="Photo"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="Name">Name</label>
+							<input asp-for="Name" class="form-control" id="Name" placeholder="Name">
+							<span class="text-danger" asp-validation-for="Name"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="Data">Data</label>
+							<input asp-for="Data" class="form-control" id="Data" placeholder="Data">
+							<span class="text-danger" asp-validation-for="Data"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="ButtonTitle">ButtonTitle</label>
+							<input asp-for="ButtonTitle" class="form-control" id="Order" placeholder="ButtonTitle">
+							<span class="text-danger" asp-validation-for="ButtonTitle"></span>
+						</div>
+						
+					
+						<button type="submit" class="btn btn-primary me-2">Submit</button>
+						<a asp-action="Index" class="btn btn-light">Cancel</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

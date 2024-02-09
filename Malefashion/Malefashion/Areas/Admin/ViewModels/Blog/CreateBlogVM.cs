@@ -9,7 +9,7 @@ public class CreateBlogVM
 
     public IFormFile Photo { get; set; }
 
-    public string ButtonTitle { get; set; } = "Read More";
+    public string? ButtonTitle { get; set; } = "Read More";
 
     public DateTime Data { get; set; }
 }

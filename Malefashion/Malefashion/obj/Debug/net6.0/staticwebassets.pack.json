@@ -605,6 +605,18 @@
       "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.woff2"
     },
     {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\2d551112-8a5e-4cc6-be8a-f9ca61b871e7.jpg",
+      "PackagePath": "staticwebassets\\img\\about\\2d551112-8a5e-4cc6-be8a-f9ca61b871e7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\34db6da3-e349-41b7-94d2-ffd2ca2097fe.jpg",
+      "PackagePath": "staticwebassets\\img\\about\\34db6da3-e349-41b7-94d2-ffd2ca2097fe.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\774e0cc0-f27f-49da-ba7e-b06a011c980e.jpg",
+      "PackagePath": "staticwebassets\\img\\about\\774e0cc0-f27f-49da-ba7e-b06a011c980e.jpg"
+    },
+    {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\about-us.jpg",
       "PackagePath": "staticwebassets\\img\\about\\about-us.jpg"
     },
@@ -645,16 +657,20 @@
       "PackagePath": "staticwebassets\\img\\banner\\banner-3.jpg"
     },
     {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\51fabf11-f135-4323-aaba-49bb0073f1ba.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\51fabf11-f135-4323-aaba-49bb0073f1ba.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\5bdb2731-a82e-4e0b-9a89-a205567ced07.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\5bdb2731-a82e-4e0b-9a89-a205567ced07.jpg"
+    },
+    {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\blog-1.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\blog-1.jpg"
     },
     {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\blog-2.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\blog-2.jpg"
-    },
-    {
-      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\blog-3.jpg",
-      "PackagePath": "staticwebassets\\img\\blog\\blog-3.jpg"
     },
     {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\blog-4.jpg",
@@ -679,6 +695,10 @@
     {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\blog-9.jpg",
       "PackagePath": "staticwebassets\\img\\blog\\blog-9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\dea7eddf-e9c0-40bc-a92e-33d3b6b05643.jpg",
+      "PackagePath": "staticwebassets\\img\\blog\\dea7eddf-e9c0-40bc-a92e-33d3b6b05643.jpg"
     },
     {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\details\\blog-author.jpg",

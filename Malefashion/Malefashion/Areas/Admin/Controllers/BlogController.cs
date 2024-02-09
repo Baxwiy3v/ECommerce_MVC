@@ -58,13 +58,15 @@ public class BlogController : Controller
             ModelState.AddModelError("Photo", "Wrong file type");
             return View(blogVM);
         }
-        if (!blogVM.Photo.ValidateSize(4*1024))
+        if (!blogVM.Photo.ValidateSize(4))
         {
             ModelState.AddModelError("Photo", "It shouldn't exceed 4 mb");
             return View(blogVM);
         }
 
         string fileName = await blogVM.Photo.CreateFile(_env.WebRootPath,  "img","blog" );
+
+        if (blogVM.ButtonTitle is null) { blogVM.ButtonTitle = "Read More"; }
 
         if (blogVM.ButtonTitle is null) blogVM.ButtonTitle = "Read More";
 
@@ -82,4 +84,85 @@ public class BlogController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+    public async Task<IActionResult> Delete(int id, bool confirim)
+    {
+        if (id <= 0) return BadRequest();
+        Blog? Blog = await _context.Blogs.FirstOrDefaultAsync(s => s.Id == id);
+        if (Blog == null) return NotFound();
+        if (confirim)
+        {
+
+            Blog.ImageUrl.DeleteFile(_env.WebRootPath, "img", "blog");
+            _context.Blogs.Remove(Blog);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        else
+        {
+
+            return View(Blog);
+        }
+    }
+
+    public async Task<IActionResult> Update(int id)
+    {
+        if (id <= 0) return BadRequest();
+        Blog? Blog = await _context.Blogs.FirstOrDefaultAsync(c => c.Id == id);
+        if (Blog is null) return NotFound();
+
+        UpdateBlogVM vm = new UpdateBlogVM
+        {
+             Name = Blog.Name,
+             Data = Blog.Data,
+            ImageUrl = Blog.ImageUrl,
+            ButtonTitle = Blog.ButtonTitle
+        };
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(int id, UpdateBlogVM blogvm)
+    {
+        if (!ModelState.IsValid) return View(blogvm);
+
+        Blog? existed = await _context.Blogs.FirstOrDefaultAsync(c => c.Id == id);
+
+        if (existed is null) return NotFound();
+
+        bool result = await _context.Blogs.AnyAsync(c => c.Name.Trim().ToLower() == blogvm.Name.Trim().ToLower() && c.Id != id);
+        if (result)
+        {
+            ModelState.AddModelError("Name", "There is already such Name");
+
+            return View(blogvm);
+        }
+       
+
+        if (blogvm.Photo is not null)
+        {
+            if (!blogvm.Photo.ValidateType())
+            {
+                ModelState.AddModelError("Photo", "Wrong file type");
+                return View(blogvm);
+            }
+            if (blogvm.Photo.ValidateSize(4 * 1024))
+            {
+                ModelState.AddModelError("Photo", "It shouldn't exceed 4 mb");
+                return View(blogvm);
+            }
+            string newImage = await blogvm.Photo.CreateFile(_env.WebRootPath, "img", "blog");
+            existed.ImageUrl.DeleteFile(_env.WebRootPath, "img", "blog");
+            existed.ImageUrl = newImage;
+
+        }
+        existed.Name = blogvm.Name;
+        existed.Data = blogvm.Data;
+        existed.ButtonTitle = blogvm.ButtonTitle;
+
+
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
 }

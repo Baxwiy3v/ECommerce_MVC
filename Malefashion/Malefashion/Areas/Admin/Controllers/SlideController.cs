@@ -177,10 +177,12 @@ public class SlideController : Controller
 			existed.ImageUrl = newImage;
 
 		}
-		existed.Title = slidevm.Title;
+       
+        existed.Title = slidevm.Title;
 		existed.Description = slidevm.Description;
 		existed.SubTitle = slidevm.SubTitle;
 		existed.Order = slidevm.Order;
+		existed.ButtonTitle = slidevm.ButtonTitle;
 
 		await _context.SaveChangesAsync();
 		return RedirectToAction(nameof(Index));

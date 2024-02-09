@@ -1,0 +1,80 @@
+﻿@model PaginationVM<Team>
+@{
+
+    int count = Model.CurrentPage * 3;
+}
+
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Teams</h4>
+                    <a class="btn btn-inverse-success" asp-controller="Team" asp-action="Create">Create Team</a>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        No
+                                    </th>
+                                    <th>
+                                        Image
+                                    </th>
+                                    <th>
+                                       Name
+                                    </th>
+                                    <th>
+                                        Department 
+                                    </th>
+                                    <th>
+                                        Settings
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Team team in Model.Items)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>
+                                            @count
+                                        </td>
+                                        <td>
+                                            <img style="width:200px; height:200px;" src="~/img/about/@team.ImageUrl" />
+                                        </td>
+                                        <td>
+                                            @team.Name
+                                        </td>
+                                        <td>
+                                            @team.Department.Name
+                                        </td>
+                                        <td>
+                                            <a asp-action="Update" asp-route-id="@team.Id" class="btn btn-inverse-warning"> <i class="mdi mdi-pencil"></i> </a>
+                                            <a asp-action="delete" asp-route-id="@team.Id" class="btn btn-inverse-danger"> <i class="mdi mdi-delete"></i> </a>
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <nav aria-label="Page navigation example" style="margin: auto; width: 40%;">
+                    <ul class="pagination">
+
+                        <li class="page-item @(Model.CurrentPage==0?"disabled":"")"><a class="page-link" asp-route-page="@(Model.CurrentPage-1)" asp-action="Index" asp-controller="Team">Previous</a></li>
+                        @for (int i = 0; i < Model.TotalPage; i++)
+
+                        {
+                            <li class="page-item @(i==Model.CurrentPage?"disabled":"")"><a class="page-link" asp-route-page="@(i)" asp-action="Index" asp-controller="Team">@(i + 1)</a></li>
+                        }
+
+                        <li class="page-item @(Model.CurrentPage==Model.TotalPage-1?"disabled":"")"><a class="page-link" asp-route-page="@(Model.CurrentPage+1)" asp-action="Index" asp-controller="Team">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
