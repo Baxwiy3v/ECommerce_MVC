@@ -5,8 +5,8 @@ using Malefashion.Models;
 using Malefashion.Services;
 using Malefashion.ViewComponents;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
 
 	opt.User.RequireUniqueEmail = true;
 
-    
+    opt.SignIn.RequireConfirmedEmail = true;
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<LayoutService>();

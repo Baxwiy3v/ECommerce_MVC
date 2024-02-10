@@ -605,10 +605,6 @@
       "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.woff2"
     },
     {
-      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\2d551112-8a5e-4cc6-be8a-f9ca61b871e7.jpg",
-      "PackagePath": "staticwebassets\\img\\about\\2d551112-8a5e-4cc6-be8a-f9ca61b871e7.jpg"
-    },
-    {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\34db6da3-e349-41b7-94d2-ffd2ca2097fe.jpg",
       "PackagePath": "staticwebassets\\img\\about\\34db6da3-e349-41b7-94d2-ffd2ca2097fe.jpg"
     },
@@ -787,6 +783,10 @@
     {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\hero\\8d739311-a541-4383-b031-9bdf545044af.jpg",
       "PackagePath": "staticwebassets\\img\\hero\\8d739311-a541-4383-b031-9bdf545044af.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\hero\\8fb2f458-b2aa-424d-bcec-ced92ec3825e.jpg",
+      "PackagePath": "staticwebassets\\img\\hero\\8fb2f458-b2aa-424d-bcec-ced92ec3825e.jpg"
     },
     {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\hero\\ac52fe89-218d-4085-9f56-086181c5fe90.jpg",
