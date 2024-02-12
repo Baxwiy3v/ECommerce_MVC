@@ -1,5 +1,7 @@
 ﻿
 @model LoginVM
+
+
 <main class="main-content">
 	<div class="breadcrumb-area breadcrumb-height"
 		 >
@@ -44,8 +46,9 @@
 									<input asp-for="IsRemembered" type="checkbox" class="form-check-input">
 									Keep me signed in
 								</label>
+								
 							</div>
-							
+							<a asp-action="ForgotPassword" class="text-primary">Forgot password?</a>
 						</div>
 						<div class="my-3">
 							

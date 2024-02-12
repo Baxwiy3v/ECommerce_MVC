@@ -4,6 +4,7 @@ using Malefashion.Models;
 using Malefashion.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Common;
 
 namespace Malefashion.Controllers
 {
@@ -139,5 +140,66 @@ namespace Malefashion.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-    }
+
+
+
+		public  IActionResult ForgotPassword()
+		{
+			
+            return View();
+		}
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+		public async Task<IActionResult> ForgotPassword(ForgotPasswordVM forgotPasswordVM)
+		{
+			if(!ModelState.IsValid) return View(forgotPasswordVM);
+
+            var user=await _manager.FindByEmailAsync(forgotPasswordVM.Email);
+
+            if (user == null) return NotFound();
+
+            string token = await _manager.GeneratePasswordResetTokenAsync(user);
+
+            string link = Url.Action("ResetPassword", "Account", new { userID = user.Id, token = token },HttpContext.Request.Scheme );
+           
+            return Json(link);
+		}
+
+		public async Task<IActionResult> ResetPassword(string userId,string token)
+		{
+            if (String.IsNullOrWhiteSpace(userId) || String.IsNullOrWhiteSpace(token)) return BadRequest();
+
+            var user =await _manager.FindByIdAsync(userId);
+            if (user == null) return NotFound();
+
+            return View();
+
+        }
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> ResetPassword(ResetPasswordVM resetPasswordVM,string userId, string token)
+		{
+			if (String.IsNullOrWhiteSpace(userId) || String.IsNullOrWhiteSpace(token)) return BadRequest();
+
+			if (!ModelState.IsValid) return View(resetPasswordVM);
+
+			var user = await _manager.FindByIdAsync(userId);
+			if (user == null) return NotFound();
+
+            var identityUser = await _manager.ResetPasswordAsync(user, token, resetPasswordVM.ConfirmPassword);
+
+			if (!identityUser.Succeeded)
+			{
+				foreach (IdentityError error in identityUser.Errors)
+				{
+					ModelState.AddModelError(String.Empty, error.Description);
+				}
+				return View();
+			}
+
+			return RedirectToAction(nameof(Login));
+		}
+	}
 }

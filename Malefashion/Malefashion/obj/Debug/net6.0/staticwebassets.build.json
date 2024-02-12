@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/RXTddMkFeRv1xtKb7eMQN+uGq2JK7sxA8UKgdPs8Kw=",
+  "Hash": "xYoi8xRsP0Kuv1dbjPTCi1n/X7Omc4nahlw+jQFqHmE=",
   "Source": "Malefashion",
   "BasePath": "_content/Malefashion",
   "Mode": "Default",
@@ -3211,6 +3211,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\hero\\4fd8830f-411e-4ef7-b875-6b26c964d604.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\hero\\73c34858-f5d0-456e-965d-a9e32f46034c.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/hero/73c34858-f5d0-456e-965d-a9e32f46034c.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\hero\\73c34858-f5d0-456e-965d-a9e32f46034c.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\hero\\8d739311-a541-4383-b031-9bdf545044af.jpg",

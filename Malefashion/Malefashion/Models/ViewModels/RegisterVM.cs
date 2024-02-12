@@ -17,7 +17,7 @@ namespace Malefashion.Models.ViewModels
         [Required]
         [DataType(DataType.EmailAddress)]
         [MinLength(10, ErrorMessage = "Email length can't be smaller than 10")]
-        [MaxLength(25, ErrorMessage = "Email length can't exceed 25")]
+        [MaxLength(255, ErrorMessage = "Email length can't exceed 255")]
         [RegularExpression("^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z]{2,}(?:\\.[a-zA-Z]{2,})+$",
         ErrorMessage = "Email is required and must be properly formatted.")]
         public string Email { get; set; }
