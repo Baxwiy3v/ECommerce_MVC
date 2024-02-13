@@ -30,6 +30,8 @@ namespace Malefashion.DAL
         public DbSet<Team> Teams { get; set; }
         public DbSet<Department> Departments { get; set; }
 
+        public DbSet<Partner> Partners { get; set; }
+
         public DbSet<WishList> WishLists { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

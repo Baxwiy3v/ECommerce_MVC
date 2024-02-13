@@ -2,6 +2,7 @@
 using Malefashion.Interfaces;
 using Malefashion.Models;
 using Malefashion.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Common;
@@ -201,5 +202,10 @@ namespace Malefashion.Controllers
 
 			return RedirectToAction(nameof(Login));
 		}
+
+		
+		
+
+
 	}
 }

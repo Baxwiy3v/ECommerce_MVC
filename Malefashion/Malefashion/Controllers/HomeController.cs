@@ -34,8 +34,15 @@ public class HomeController : Controller
     public  async Task<IActionResult> About()
     {
         List<Team> teams=await _context.Teams.Include(d=>d.Department).ToListAsync();
+        List<Partner> partners = await _context.Partners.ToListAsync();
 
-        return View(teams);
+        AboutVM vm = new AboutVM
+        {
+            Partners = partners,
+            Teams = teams
+        };
+
+        return View(vm);
     }
 
     public async Task<IActionResult> Blog()
