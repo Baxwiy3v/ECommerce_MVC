@@ -1,86 +1,100 @@
-﻿@model OrderVM
+﻿@using Malefashion.DAL;
+@using Microsoft.Extensions.Options;
+
+
+@model OrderVM
+@inject IOptions<StripeSettings> Stripe
 @{
-    decimal total = 0;
+	decimal total = 0;
 }
 <section class="breadcrumb-option">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb__text">
-                    <h4>Check Out</h4>
-                    <div class="breadcrumb__links">
-                        <a asp-action="Index" asp-controller="Home">Home</a>
-                        <a asp-action="ShopPage" asp-controller="Home">Shop</a>
-                        <span>Check Out</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="breadcrumb__text">
+					<h4>Check Out</h4>
+					<div class="breadcrumb__links">
+						<a asp-action="Index" asp-controller="Home">Home</a>
+						<a asp-action="ShopPage" asp-controller="Home">Shop</a>
+						<span>Check Out</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- Breadcrumb Section End -->
 <!-- Checkout Section Begin -->
 <section class="checkout spad">
-    <div class="container">
-        <div class="checkout__form">
-            <form method="post">
-                <div class="row">
-                    <div class="col-lg-8 col-md-6">
-                       
-                        <h6 class="checkout__title">Billing Details</h6>
-                       
-                        <div class="checkout__input">
-                            <label asp-for="Address">Address <span class="required">*</span></label>
-                            <input asp-for="Address" placeholder="Street address" />
-                            <span class="text-danger" asp-validation-for="Address"></span>
-                        </div>
-                        <div class="order-button-payment">
-                            <input value="Place order" type="submit" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="checkout__order">
-                            <h4 class="order__title">Your order</h4>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="cart-product-name">Product</th>
-                                        <th class="cart-product-total">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (BasketItem item in Model.BasketItems)
-                                    {
-                                        total += item.Product.Price * item.Count;
-                                        <tr class="cart_item">
-                                            <td class="cart-product-name">
-                                                @item.Product.Name :<strong class="product-quantity">
-                                                    @item.Product.Price × @item.Count
-                                                </strong>
-                                            </td>
-                                            <td class="cart-product-total">
-                                                <span class="amount">$@(item.Product.Price * item.Count)</span>
-                                            </td>
-                                        </tr>
-                                    }
+	<div class="container">
+		<div class="checkout__form">
+			<form method="post" onchange="this.form.submit()">
+				<div class="row">
+					<div class="col-lg-8 col-md-6">
 
-                                </tbody>
-                                <tfoot>
-                                    <tr class="order-total">
-                                        <th>Order Total</th>
-                                        <td>
-                                            <strong><span class="amount text-danger">$@total</span></strong>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        
-                          
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+						<h6 class="checkout__title">Billing Details</h6>
+
+						<div class="checkout__input">
+							<label asp-for="Address">Address <span class="required">*</span></label>
+							<input asp-for="Address" placeholder="Street address" />
+							<span class="text-danger" asp-validation-for="Address"></span>
+						</div>
+
+						<script src="//checkout.stripe.com/v2/checkout.js"
+								class="stripe-button"
+								data-key="@Stripe.Value.Publishablekey"
+								data-amount="@ViewBag.Total"
+								data-name="Malefashion"
+								data-locale="en"
+								data-discription="Sample charge"
+								data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+								data-zip-code="true">
+						</script>
+
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="checkout__order">
+							<h4 class="order__title">Your order</h4>
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="cart-product-name">Product</th>
+										<th class="cart-product-total">Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (BasketItem item in Model.BasketItems)
+									{
+										total += item.Product.Price * item.Count;
+										<tr class="cart_item">
+											<td class="cart-product-name">
+												@item.Product.Name :<strong class="product-quantity">
+													@item.Product.Price × @item.Count
+												</strong>
+											</td>
+											<td class="cart-product-total">
+												<span class="amount">$@(item.Product.Price * item.Count)</span>
+											</td>
+										</tr>
+									}
+
+								</tbody>
+								<tfoot>
+									<tr class="order-total">
+										<th>Order Total</th>
+										<td>
+											<strong><span class="amount text-danger">$@total</span></strong>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+
+
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </section>
 <!-- Checkout Section End -->

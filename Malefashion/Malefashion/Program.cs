@@ -6,7 +6,7 @@ using Malefashion.Services;
 using Malefashion.ViewComponents;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +20,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
 
     opt.SignIn.RequireConfirmedEmail = true;
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<LayoutService>();
 builder.Services.AddScoped<HeaderViewComponent>();
@@ -32,7 +33,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
-
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:Secretkey"];
 app.MapControllerRoute(
 
 	"default",

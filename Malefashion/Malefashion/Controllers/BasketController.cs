@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Stripe;
 using System.Security.Claims;
 
 namespace Malefashion.Controllers
@@ -50,7 +51,7 @@ namespace Malefashion.Controllers
 
 					foreach (BasketCookieItemVM basketCookieItem in basket)
 					{
-						Product product = await _context.Products.Include(p => p.ProductImages.Where(pi => pi.IsPrimary == true)).FirstOrDefaultAsync(p => p.Id == basketCookieItem.Id);
+						var product = await _context.Products.Include(p => p.ProductImages.Where(pi => pi.IsPrimary == true)).FirstOrDefaultAsync(p => p.Id == basketCookieItem.Id);
 
 						if (product is not null)
 						{
@@ -76,7 +77,7 @@ namespace Malefashion.Controllers
 		public async Task<IActionResult> AddBasket(int id)
 		{
 			if (id <= 0) return BadRequest();
-			Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+			var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 			if (product is null) return NotFound();
 
 			if (User.Identity.IsAuthenticated)
@@ -146,7 +147,7 @@ namespace Malefashion.Controllers
 		public async Task<IActionResult> RemoveBasket(int id)
 		{
 			if (id <= 0) return BadRequest();
-			Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+			var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 			if (product is null) return NotFound();
 			List<BasketCookieItemVM> basket;
 			if (User.Identity.IsAuthenticated)
@@ -184,7 +185,7 @@ namespace Malefashion.Controllers
 		public async Task<IActionResult> Decrement(int id)
 		{
 			if (id <= 0) return BadRequest();
-			Product product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+			var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 			if (product is null) return NotFound();
 			List<BasketCookieItemVM> basket;
 			if (User.Identity.IsAuthenticated)
@@ -238,7 +239,7 @@ namespace Malefashion.Controllers
 			return View(orderVM);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Checkout(OrderVM orderVM)
+		public async Task<IActionResult> Checkout(OrderVM orderVM,string stripeEmail,string stripeToken)
 		{
 			AppUser user = await _userManager.Users.Include(u => u.BasketItems.Where(bi => bi.OrderId == null)).ThenInclude(pi => pi.Product).FirstOrDefaultAsync(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier));
 
@@ -262,6 +263,42 @@ namespace Malefashion.Controllers
 				BasketItems = user.BasketItems,
 				TotalPrice = total
 			};
+
+			//Stripe
+
+			var optionCust = new CustomerCreateOptions
+			{
+				Email = stripeEmail,
+				Name = user.Name + " " + user.Surname,
+				Phone = "+994 55 460 46 04"
+			};
+			var serviceCust = new CustomerService();
+			Customer customer = serviceCust.Create(optionCust);
+
+			total = total * 100;
+			var optionsCharge = new ChargeCreateOptions
+			{
+
+				Amount = (long)total,
+				Currency = "USD",
+				Description = "Product Selling amount",
+				Source = stripeToken,
+				ReceiptEmail = stripeEmail
+				
+
+			};
+			var serviceCharge = new ChargeService();
+			Charge charge = serviceCharge.Create(optionsCharge);
+			if (charge.Status != "succeeded")
+			{
+				ViewBag.BasketItems = user.BasketItems;
+				ModelState.AddModelError("Address", "Odenishde problem var");
+				return View();
+			}
+
+
+
+
 			await _context.Orders.AddAsync(order);
 			await _context.SaveChangesAsync();
 			string body = $@"<table class=""table"">
