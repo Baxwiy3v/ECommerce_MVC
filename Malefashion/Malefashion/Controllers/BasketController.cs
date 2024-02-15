@@ -301,28 +301,29 @@ namespace Malefashion.Controllers
 
 			await _context.Orders.AddAsync(order);
 			await _context.SaveChangesAsync();
-			string body = $@"<table class=""table"">
-  <thead>
-    <tr>
-      <th scope=""col"">#</th>
-      <th scope=""col"">Name</th>
-      <th scope=""col"">Price</th>
-      <th scope=""col"">Count</th>
-    </tr>
-  </thead>
-  <tbody>";
-			foreach (BasketItem item in order.BasketItems)
+			string body = @"<table border=""1"">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Name</th>
+                                  <th>Price</th>
+                                  <th>Count</th>
+                                </tr>
+                              </thead>
+                              <tbody>";
+
+			foreach (var item in order.BasketItems)
 			{
-				body += $@"<tr>
-      <th scope=""row"">${item.Id}</th>
-      <td>${item.Product.Name}</td>
-      <td>${item.Price}</td>
-      <td>{item.Count}</td>
-    </tr>
-";
-			};
-			body += @"</tbody>
-</table>";
+				body += @$"<tr>
+                           <td>{item.Id}</td>
+                           <td>{item.Product.Name}</td>
+                           <td>{item.Price}</td>
+                           <td>{item.Count}</td>
+                         </tr>";
+			}
+
+			body += @"  </tbody>
+                     </table>";
 			await _emailService.SendMailAsync(user.Email, "Your Order", body, true);
 			return RedirectToAction("Index", "Home");
 		}

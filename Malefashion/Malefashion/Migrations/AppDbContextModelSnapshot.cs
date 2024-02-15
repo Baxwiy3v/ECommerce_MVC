@@ -98,6 +98,47 @@ namespace Malefashion.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Malefashion.Models.Banner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ButtonTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Order")
+                        .IsUnique();
+
+                    b.ToTable("Banners", (string)null);
+                });
+
             modelBuilder.Entity("Malefashion.Models.BasketItem", b =>
                 {
                     b.Property<int>("Id")
@@ -136,7 +177,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("BasketItems");
+                    b.ToTable("BasketItems", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Blog", b =>
@@ -174,7 +215,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Category", b =>
@@ -201,7 +242,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Color", b =>
@@ -224,7 +265,7 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Department", b =>
@@ -251,7 +292,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Order", b =>
@@ -289,7 +330,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Partner", b =>
@@ -312,7 +353,7 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Partners");
+                    b.ToTable("Partners", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Product", b =>
@@ -357,7 +398,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.ProductColor", b =>
@@ -386,7 +427,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductColors");
+                    b.ToTable("ProductColors", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.ProductImage", b =>
@@ -417,7 +458,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.ProductSize", b =>
@@ -446,7 +487,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("ProductSizes");
+                    b.ToTable("ProductSizes", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.ProductTag", b =>
@@ -475,7 +516,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("ProductTags");
+                    b.ToTable("ProductTags", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Setting", b =>
@@ -502,7 +543,7 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Settings");
+                    b.ToTable("Settings", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Size", b =>
@@ -525,7 +566,7 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sizes");
+                    b.ToTable("Sizes", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Slide", b =>
@@ -587,7 +628,7 @@ namespace Malefashion.Migrations
                     b.HasIndex("Title")
                         .IsUnique();
 
-                    b.ToTable("Slides");
+                    b.ToTable("Slides", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Tag", b =>
@@ -610,7 +651,7 @@ namespace Malefashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.Team", b =>
@@ -643,7 +684,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Teams");
+                    b.ToTable("Teams", (string)null);
                 });
 
             modelBuilder.Entity("Malefashion.Models.WishList", b =>
@@ -673,7 +714,7 @@ namespace Malefashion.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("WishLists");
+                    b.ToTable("WishLists", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

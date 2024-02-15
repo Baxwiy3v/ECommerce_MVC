@@ -12,7 +12,6 @@ namespace Malefashion.Models
         public Gender Gender { get; set; }
         public List<BasketItem> BasketItems { get; set; }
         public List<Order> Orders { get; set; }
-
-		public List<WishList> WishLists { get; set; }
+        public List<WishList> WishLists { get; set; }
 	}
 }

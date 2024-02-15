@@ -1,27 +1,33 @@
 ﻿@model List<Blog>
 
-<section class="blog spad">
-	<div class="container">
-
-		<span> <img style="height:400px;width:9000px;" src="~/img/breadcrumb-bg.jpg" />   </span>
-
-	</div>
+<section class="breadcrumb-blog set-bg" >
+	<img src="~/img/breadcrumb-bg.jpg" />
 	<div class="container">
 		<div class="row">
-
+			<div class="col-lg-12">
+				<h2>Our Blog</h2>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Blog Section Begin -->
+<section class="blog spad">
+	<div class="container">
+		<div class="row">
 
 			@foreach (Blog blog in Model)
 			{
 				<div class="col-lg-4 col-md-6 col-sm-6">
 					<div class="blog__item">
+						<div class="blog__item__pic set-bg">
 
-						<div class="blog__item__pic set-bg"></div>
-
-						<div class="blog__item__text">
-							<span> <img src="~/img/blog/@blog.ImageUrl" alt="@blog.Name" />  </span>
-							<span><img src="~/img/icon/calendar.png" > @blog.Data</span>
-							<h5>@blog.Name</h5>
-							<a href="#">@blog.ButtonTitle</a>
+							<div class="blog__item__text">
+								<span> <img src="~/img/blog/@blog.ImageUrl" alt="@blog.Name" />  </span>
+								<span><img src="~/img/icon/calendar.png"> @blog.Data</span>
+								<h5>@blog.Name</h5>
+								<a href="#">@blog.ButtonTitle</a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -29,4 +35,3 @@
 		</div>
 	</div>
 </section>
-<!-- Blog Section End -->

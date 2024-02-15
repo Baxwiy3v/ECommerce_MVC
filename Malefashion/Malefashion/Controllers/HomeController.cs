@@ -10,50 +10,55 @@ namespace Malefashion.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly AppDbContext _context;
+	private readonly AppDbContext _context;
 	private readonly UserManager<AppUser> _userManager;
 
-	public HomeController(AppDbContext context,UserManager<AppUser> userManager)
-    {
-        _context = context;
+	public HomeController(AppDbContext context, UserManager<AppUser> userManager)
+	{
+		_context = context;
 		_userManager = userManager;
 	}
-    public async Task<IActionResult> Index()
-    {
-        List<Slide> slides = await _context.Slides.OrderBy(s => s.Order).ToListAsync();
-        List<Category> categories = await _context.Categories.Include(c => c.Products).Where(c => c.Products.Count > 0).ToListAsync();
-        HomeVM vm = new()
-        {
-            Slides = slides,
-            Categories = categories
+	public async Task<IActionResult> Index()
+	{
+		List<Slide> slides = await _context.Slides.OrderBy(s => s.Order).ToListAsync();
+		List<Banner> banners = await _context.Banners.OrderBy(s => s.Order).ToListAsync();
+		List<Category> categories = await _context.Categories.Include(c => c.Products).Where(c => c.Products.Count > 0).ToListAsync();
+		List<Blog> blogs = await _context.Blogs.ToListAsync();
+		HomeVM vm = new()
+		{
+			Slides = slides,
+			Categories = categories,
+			Banners = banners,
+			Blogs = blogs
 
-        };
-        return View(vm);
-    }
+		};
+		return View(vm);
+	}
 
-    public  async Task<IActionResult> About()
-    {
-        List<Team> teams=await _context.Teams.Include(d=>d.Department).ToListAsync();
-        List<Partner> partners = await _context.Partners.ToListAsync();
+	public async Task<IActionResult> About()
+	{
+		List<Team> teams = await _context.Teams.Include(d => d.Department).ToListAsync();
+		List<Partner> partners = await _context.Partners.ToListAsync();
 
-        AboutVM vm = new AboutVM
-        {
-            Partners = partners,
-            Teams = teams
-        };
+		AboutVM vm = new AboutVM
+		{
+			Partners = partners,
+			Teams = teams
+		};
 
-        return View(vm);
-    }
+		return View(vm);
+	}
 
-    public async Task<IActionResult> Blog()
-    {
-        List<Blog> blogs = await _context.Blogs.ToListAsync();
+	public async Task<IActionResult> Blog()
+	{
+		List<Blog> blogs = await _context.Blogs.ToListAsync();
 
 
-        return View(blogs);
-    }
+		return View(blogs);
+	}
 
-    [Authorize]
+
+	[Authorize]
 	public IActionResult Wishlist()
 	{
 		var wishlist = _context.WishLists.Include(x => x.AppUser).Include(x => x.Product).ThenInclude(x => x.ProductImages).Where(x => x.AppUser.UserName == User.Identity.Name).ToList();
@@ -80,88 +85,88 @@ public class HomeController : Controller
 		return RedirectToAction("Wishlist");
 	}
 
-    [Authorize]
-    public async Task<IActionResult> AddWishlist(int id)
-    {
-        var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
-        if (product is null)
-            return NotFound();
-        var user = await _userManager.FindByNameAsync(User.Identity.Name);
+	[Authorize]
+	public async Task<IActionResult> AddWishlist(int id)
+	{
+		var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+		if (product is null)
+			return NotFound();
+		var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
 
-        var exist = await _context.WishLists.FirstOrDefaultAsync(x => x.AppUserId == user.Id && x.ProductId == product.Id);
-        if (exist is not null)
-        {
-            _context.WishLists.Remove(exist);
-            await _context.SaveChangesAsync();
-            return Redirect(Request.Headers["Referer"]);
-        }
+		var exist = await _context.WishLists.FirstOrDefaultAsync(x => x.AppUserId == user.Id && x.ProductId == product.Id);
+		if (exist is not null)
+		{
+			_context.WishLists.Remove(exist);
+			await _context.SaveChangesAsync();
+			return Redirect(Request.Headers["Referer"]);
+		}
 
-        WishList wishList = new()
-        {
-            Product = product,
-            AppUser = user
-        };
-        await _context.WishLists.AddAsync(wishList);
-        await _context.SaveChangesAsync();
-        return Redirect(Request.Headers["Referer"]);
-    }
+		WishList wishList = new()
+		{
+			Product = product,
+			AppUser = user
+		};
+		await _context.WishLists.AddAsync(wishList);
+		await _context.SaveChangesAsync();
+		return Redirect(Request.Headers["Referer"]);
+	}
 
-    public async Task<IActionResult> Detail(int id)
-    {
-        if (id <= 0) return BadRequest();
-        Product product = await _context.Products.Include(c=>c.Category).Include(p => p.ProductTags).ThenInclude(pt => pt.Tag).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductImages).FirstOrDefaultAsync(p => p.Id == id);
-        if (product == null) return NotFound();
-        var relatedProducts = await _context.Products.Include(p => p.ProductImages).Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToListAsync();
-        DetailVM vm = new()
-        {
-            Product = product,
-            RelatedProducts = relatedProducts
-        };
-        return View(vm);
-    }
+	public async Task<IActionResult> Detail(int id)
+	{
+		if (id <= 0) return BadRequest();
+		Product product = await _context.Products.Include(c => c.Category).Include(p => p.ProductTags).ThenInclude(pt => pt.Tag).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductImages).FirstOrDefaultAsync(p => p.Id == id);
+		if (product == null) return NotFound();
+		var relatedProducts = await _context.Products.Include(p => p.ProductImages).Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToListAsync();
+		DetailVM vm = new()
+		{
+			Product = product,
+			RelatedProducts = relatedProducts
+		};
+		return View(vm);
+	}
 
-	
+
 
 	public async Task<IActionResult> ShopPage(int page, int sortId, int? catId)
-    {
-        List<Product> products;
-        double count;
-        if (catId <= 0) return BadRequest();
-        if (catId is not null)
-        {
-            products = await _context.Products.Skip(page * 3).Take(3).Include(c => c.Category).Include(p => p.ProductImages).Where(p => p.CategoryId == catId).ToListAsync();
-            count = await _context.Products.Include(c => c.Category).Where(p => p.CategoryId == catId).CountAsync();
-        }
-        else
-        {
-            products = await _context.Products.Skip(page * 3).Take(3).Include(c => c.Category).Include(p => p.ProductImages).ToListAsync();
-            count = await _context.Products.CountAsync();
-        }
+	{
+		List<Product> products;
+		double count;
+		if (catId <= 0) return BadRequest();
+		if (catId is not null)
+		{
+			products = await _context.Products.Skip(page * 3).Take(3).Include(c => c.Category).Include(p => p.ProductImages).Where(p => p.CategoryId == catId).ToListAsync();
+			count = await _context.Products.Include(c => c.Category).Where(p => p.CategoryId == catId).CountAsync();
+		}
+		else
+		{
+			products = await _context.Products.Skip(page * 3).Take(3).Include(c => c.Category).Include(p => p.ProductImages).ToListAsync();
+			count = await _context.Products.CountAsync();
+		}
 
-        switch (sortId)
-        {
-            case 1:
-                products = products.OrderBy(p => p.CreatedTime).ToList();
-                break;
-            case 2:
-                products = products.OrderBy(p => p.Name).ToList();
-                break;
-            case 3:
-                products = products.OrderBy(p => p.Price).ToList();
-                break;
-            default:
-                break;
-        }
+		switch (sortId)
+		{
+			case 1:
+				products = products.OrderBy(p => p.CreatedTime).ToList();
+				break;
+			case 2:
+				products = products.OrderBy(p => p.Name).ToList();
+				break;
+			case 3:
+				products = products.OrderBy(p => p.Price).ToList();
+				break;
+			default:
+				break;
+		}
 
-        PaginationVM<Product> pagination = new()
-        {
-            TotalPage = Math.Ceiling(count / 3),
-            CurrentPage = page,
-            Items = products
-        };
-        return View(pagination);
-    }
+		PaginationVM<Product> pagination = new()
+		{
+			TotalPage = Math.Ceiling(count / 3),
+			CurrentPage = page,
+			Items = products
+		};
+		return View(pagination);
+	}
 
 
 }

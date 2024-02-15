@@ -26,13 +26,11 @@ namespace Malefashion.DAL
         public DbSet<Setting> Settings { get; set; }
 		public DbSet<BasketItem> BasketItems { get; set; }
 		public DbSet<Order> Orders { get; set; }
-
         public DbSet<Team> Teams { get; set; }
         public DbSet<Department> Departments { get; set; }
-
         public DbSet<Partner> Partners { get; set; }
-
         public DbSet<WishList> WishLists { get; set; }
+		public DbSet<Banner> Banners { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
