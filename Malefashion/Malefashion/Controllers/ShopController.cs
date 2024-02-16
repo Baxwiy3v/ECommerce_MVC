@@ -60,5 +60,5 @@ public class ShopController : Controller
 
 		};
 		return View(vm);
-	}//
+	}
 }

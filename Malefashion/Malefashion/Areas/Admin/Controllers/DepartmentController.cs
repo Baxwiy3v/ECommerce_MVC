@@ -1,6 +1,8 @@
 ﻿using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +17,7 @@ public class DepartmentController : Controller
     {
         _context = context;
     }
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> Index(int page)
     {
         double count = await _context.Departments.CountAsync();
@@ -31,6 +34,7 @@ public class DepartmentController : Controller
         };
         return View(pagination);
     }
+    [Authorize(Roles = "Admin,Moderator")]
     public IActionResult Create()
     {
         return View();
@@ -59,16 +63,17 @@ public class DepartmentController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> Update(int id)
     {
-        if (id <= 0) return BadRequest();
+        if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 
-        Department? Department = await _context.Departments.FirstOrDefaultAsync(c => c.Id == id);
+		Department? Department = await _context.Departments.FirstOrDefaultAsync(c => c.Id == id);
 
-        if (Department == null) return NotFound();
+        if (Department == null) throw new NotFoundException("There is no such Department");
 
-        UpdateDepartmentVM DepartmentVM = new UpdateDepartmentVM
+		UpdateDepartmentVM DepartmentVM = new UpdateDepartmentVM
         {
 
             Name = Department.Name
@@ -81,15 +86,15 @@ public class DepartmentController : Controller
 
     public async Task<IActionResult> Update(int id, UpdateDepartmentVM DepartmentVM)
     {
-        if (id <= 0) return BadRequest();
+        if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
-        if (!ModelState.IsValid) return View(DepartmentVM);
+		if (!ModelState.IsValid) return View(DepartmentVM);
 
         Department? existed = await _context.Departments.FirstOrDefaultAsync(c => c.Id == id);
 
-        if (existed == null) return NotFound();
+        if (existed == null) throw new NotFoundException("There is no such Department");
 
-        bool result = await _context.Departments.AnyAsync(c => c.Name.Trim().ToLower() == DepartmentVM.Name.Trim().ToLower() && c.Id != id);
+		bool result = await _context.Departments.AnyAsync(c => c.Name.Trim().ToLower() == DepartmentVM.Name.Trim().ToLower() && c.Id != id);
 
         if (result)
         {
@@ -102,16 +107,16 @@ public class DepartmentController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id, bool confirim)
     {
-        if (id <= 0) return BadRequest();
+        if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
         var existed = await _context.Departments.FirstOrDefaultAsync(c => c.Id == id);
 
-        if (existed is null) return NotFound();
+        if (existed is null) throw new NotFoundException("There is no such Department");
 
-        if (confirim)
+		if (confirim)
         {
 
             _context.Departments.Remove(existed);

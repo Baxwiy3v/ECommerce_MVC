@@ -1,7 +1,9 @@
 ﻿using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
 using Malefashion.Utilities.Extentions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,7 @@ public class BlogController : Controller
         _context = context;
         _env = env;
     }
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> Index(int page)
     {
         double count = await _context.Blogs.CountAsync();
@@ -34,6 +37,7 @@ public class BlogController : Controller
         };
         return View(pagination);
     }
+    [Authorize(Roles = "Admin,Moderator")]
     public IActionResult Create()
     {
         return View();
@@ -84,12 +88,13 @@ public class BlogController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id, bool confirim)
     {
-        if (id <= 0) return BadRequest();
-        Blog? Blog = await _context.Blogs.FirstOrDefaultAsync(s => s.Id == id);
-        if (Blog == null) return NotFound();
-        if (confirim)
+        if (id <= 0) throw new WrongRequestException("Your request is wrong");
+		Blog? Blog = await _context.Blogs.FirstOrDefaultAsync(s => s.Id == id);
+        if (Blog == null) throw new NotFoundException("There is no such blog");
+		if (confirim)
         {
 
             Blog.ImageUrl.DeleteFile(_env.WebRootPath, "img", "blog");
@@ -103,14 +108,14 @@ public class BlogController : Controller
             return View(Blog);
         }
     }
-
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> Update(int id)
     {
-        if (id <= 0) return BadRequest();
-        Blog? Blog = await _context.Blogs.FirstOrDefaultAsync(c => c.Id == id);
-        if (Blog is null) return NotFound();
+        if (id <= 0) throw new WrongRequestException("Your request is wrong");
+		Blog? Blog = await _context.Blogs.FirstOrDefaultAsync(c => c.Id == id);
+        if (Blog is null) throw new NotFoundException("There is no such blog");
 
-        UpdateBlogVM vm = new UpdateBlogVM
+		UpdateBlogVM vm = new UpdateBlogVM
         {
              Name = Blog.Name,
              Data = Blog.Data,
@@ -124,13 +129,14 @@ public class BlogController : Controller
     [HttpPost]
     public async Task<IActionResult> Update(int id, UpdateBlogVM blogvm)
     {
-        if (!ModelState.IsValid) return View(blogvm);
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
+		if (!ModelState.IsValid) return View(blogvm);
 
         Blog? existed = await _context.Blogs.FirstOrDefaultAsync(c => c.Id == id);
 
-        if (existed is null) return NotFound();
+        if (existed is null) throw new NotFoundException("There is no such blog");
 
-        bool result = await _context.Blogs.AnyAsync(c => c.Name.Trim().ToLower() == blogvm.Name.Trim().ToLower() && c.Id != id);
+		bool result = await _context.Blogs.AnyAsync(c => c.Name.Trim().ToLower() == blogvm.Name.Trim().ToLower() && c.Id != id);
         if (result)
         {
             ModelState.AddModelError("Name", "There is already such Name");

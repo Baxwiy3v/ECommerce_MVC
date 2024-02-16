@@ -1,6 +1,8 @@
 ﻿using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +17,8 @@ public class CategoryController : Controller
 	{
 		_context = context;
 	}
-	public async Task<IActionResult> Index(int page)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Index(int page)
 	{
 		double count = await _context.Categories.CountAsync();
 
@@ -31,7 +34,8 @@ public class CategoryController : Controller
 		};
 		return View(pagination);
 	}
-	public IActionResult Create()
+    [Authorize(Roles = "Admin,Moderator")]
+    public IActionResult Create()
 	{
 		return View();
 	}
@@ -59,14 +63,15 @@ public class CategoryController : Controller
 
 		return RedirectToAction(nameof(Index));
 	}
-	public async Task<IActionResult> Update(int id)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Update(int id)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 
 		Category? category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (category == null) return NotFound();
+		if (category == null) throw new NotFoundException("There is no such Category");
 
 		UpdateCategoryVM categoryVM = new UpdateCategoryVM
 		{
@@ -81,13 +86,13 @@ public class CategoryController : Controller
 
 	public async Task<IActionResult> Update(int id, UpdateCategoryVM categoryVM)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 		if (!ModelState.IsValid) return View(categoryVM);
 
 		Category? existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed == null) return NotFound();
+		if (existed == null) throw new NotFoundException("There is no such Category");
 
 		bool result = await _context.Categories.AnyAsync(c => c.Name.Trim().ToLower() == categoryVM.Name.Trim().ToLower() && c.Id != id);
 
@@ -102,14 +107,14 @@ public class CategoryController : Controller
 		return RedirectToAction(nameof(Index));
 	}
 
-
-	public async Task<IActionResult> Delete(int id, bool confirim)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id, bool confirim)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 		var existed = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed is null) return NotFound();
+		if (existed is null) throw new NotFoundException("There is no such Category");
 
 		if (confirim)
 		{

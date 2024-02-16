@@ -2,7 +2,9 @@
 using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
 using Malefashion.Utilities.Extentions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +21,8 @@ public class SlideController : Controller
 
 		_env = env;
 	}
-	public async Task<IActionResult> Index(int page)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Index(int page)
     {
         double count = await _context.Slides.CountAsync();
 
@@ -34,7 +37,8 @@ public class SlideController : Controller
         };
         return View(pagination);
 	}
-	public IActionResult Create()
+    [Authorize(Roles = "Admin,Moderator")]
+    public IActionResult Create()
 	{
 		return View();
 	}
@@ -95,12 +99,12 @@ public class SlideController : Controller
 		await _context.SaveChangesAsync();
 		return RedirectToAction(nameof(Index));
 	}
-
-	public async Task<IActionResult> Delete(int id, bool confirim)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id, bool confirim)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 		Slide? slide = await _context.Slides.FirstOrDefaultAsync(s => s.Id == id);
-		if (slide == null) return NotFound();
+		if (slide == null) throw new NotFoundException("There is no such Slide");
 		if (confirim)
 		{
 
@@ -115,12 +119,12 @@ public class SlideController : Controller
 			return View(slide);
 		}
 	}
-
-	public async Task<IActionResult> Update(int id)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Update(int id)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 		Slide? slide = await _context.Slides.FirstOrDefaultAsync(c => c.Id == id);
-		if (slide is null) return NotFound();
+		if (slide is null) throw new NotFoundException("There is no such Slide");
 
 		UpdateSlideVM vm = new UpdateSlideVM
 		{
@@ -138,11 +142,13 @@ public class SlideController : Controller
 	[HttpPost]
 	public async Task<IActionResult> Update(int id, UpdateSlideVM slidevm)
 	{
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
+
 		if (!ModelState.IsValid) return View(slidevm);
 
 		Slide? existed = await _context.Slides.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed is null) return NotFound();
+		if (existed is null) throw new NotFoundException("There is no such Slide");
 
 		bool result = await _context.Slides.AnyAsync(c => c.Title.Trim().ToLower() == slidevm.Title.Trim().ToLower()  && c.Id != id);
 		if (result)

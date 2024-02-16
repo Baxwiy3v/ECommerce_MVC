@@ -11,7 +11,6 @@ namespace Malefashion.Configurations
             builder.Property(s => s.Name).IsRequired().HasMaxLength(50);
             builder.HasIndex(s => s.Name).IsUnique();
 
-			builder.Property(s => s.ImageUrl).IsRequired();
 
 			builder.HasIndex(s => s.Order).IsUnique();
         }

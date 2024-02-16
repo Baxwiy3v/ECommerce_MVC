@@ -2,6 +2,8 @@
 using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +18,8 @@ public class SizeController : Controller
 	{
 		_context = context;
 	}
-	public async Task<IActionResult> Index(int page)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Index(int page)
 	{
 		double count = await _context.Sizes.CountAsync();
 
@@ -32,7 +35,8 @@ public class SizeController : Controller
 		};
 		return View(pagination);
 	}
-	public IActionResult Create()
+    [Authorize(Roles = "Admin,Moderator")]
+    public IActionResult Create()
 	{
 
 
@@ -62,14 +66,15 @@ public class SizeController : Controller
 
 		return RedirectToAction(nameof(Index));
 	}
-	public async Task<IActionResult> Update(int id)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Update(int id)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 
 		Size? size = await _context.Sizes.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (size == null) return NotFound();
+		if (size == null) throw new NotFoundException("There is no such Size");
 
 		UpdateSizeVM sizeVM = new UpdateSizeVM
 		{
@@ -87,13 +92,13 @@ public class SizeController : Controller
 
 	public async Task<IActionResult> Update(int id, UpdateSizeVM sizeVM)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 		if (!ModelState.IsValid) return View(sizeVM);
 
 		Size? existed = await _context.Sizes.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed == null) return NotFound();
+		if (existed == null) throw new NotFoundException("There is no such Size");
 
 		bool result = await _context.Sizes.AnyAsync(c => c.Name.Trim().ToLower() == sizeVM.Name.Trim().ToLower() && c.Id != id);
 
@@ -110,14 +115,14 @@ public class SizeController : Controller
 		return RedirectToAction(nameof(Index));
 	}
 
-
-	public async Task<IActionResult> Delete(int id, bool confirim)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id, bool confirim)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 		var existed = await _context.Sizes.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed is null) return NotFound();
+		if (existed is null) throw new NotFoundException("There is no such Size");
 
 		if (confirim)
 		{

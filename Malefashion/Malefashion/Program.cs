@@ -1,6 +1,7 @@
 using Malefashion;
 using Malefashion.DAL;
 using Malefashion.Interfaces;
+using Malefashion.Middlewares;
 using Malefashion.Models;
 using Malefashion.Services;
 using Malefashion.ViewComponents;
@@ -10,7 +11,7 @@ using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddViewComponentsAsServices(); ;
 builder.Services.AddDbConfig(builder.Configuration);
 builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
 {
@@ -33,6 +34,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseStaticFiles();
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 StripeConfiguration.ApiKey = builder.Configuration["Stripe:Secretkey"];
 app.MapControllerRoute(
 

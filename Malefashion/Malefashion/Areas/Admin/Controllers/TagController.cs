@@ -1,6 +1,8 @@
 ﻿using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +17,8 @@ public class TagController : Controller
 	{
 		_context = context;
 	}
-	public async Task<IActionResult> Index(int page)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Index(int page)
 	{
 		double count = await _context.Tags.CountAsync();
 
@@ -32,7 +35,8 @@ public class TagController : Controller
 
 		return View(pagination);
 	}
-	public IActionResult Create()
+    [Authorize(Roles = "Admin,Moderator")]
+    public IActionResult Create()
 	{
 
 
@@ -62,14 +66,16 @@ public class TagController : Controller
 
 		return RedirectToAction(nameof(Index));
 	}
-	public async Task<IActionResult> Update(int id)
+
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Update(int id)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 
 		Tag? tag = await _context.Tags.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (tag == null) return NotFound();
+		if (tag == null) throw new NotFoundException("There is no such Tag");
 
 		UpdateTagVM tagVM = new UpdateTagVM
 		{
@@ -87,13 +93,13 @@ public class TagController : Controller
 
 	public async Task<IActionResult> Update(int id, UpdateTagVM tagVM)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong"); ;
 
 		if (!ModelState.IsValid) return View(tagVM);
 
 		Tag? existed = await _context.Tags.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed == null) return NotFound();
+		if (existed == null) throw new NotFoundException("There is no such Tag");
 
 		bool result = await _context.Tags.AnyAsync(c => c.Name.Trim().ToLower() == tagVM.Name.Trim().ToLower() && c.Id != id);
 
@@ -109,14 +115,14 @@ public class TagController : Controller
 
 		return RedirectToAction(nameof(Index));
 	}
-
-	public async Task<IActionResult> Delete(int id, bool confirim)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id, bool confirim)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 		var existed = await _context.Tags.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed is null) return NotFound();
+		if (existed is null) throw new NotFoundException("There is no such Tag");
 
 		if (confirim)
 		{

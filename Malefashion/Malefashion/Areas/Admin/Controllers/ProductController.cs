@@ -2,7 +2,9 @@
 using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
 using Malefashion.Utilities.Extentions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +21,8 @@ namespace Malefashion.Areas.Admin.Controllers
 			_context = context;
 			_env = env;
 		}
-		public async Task<IActionResult> Index(int page)
+        [Authorize(Roles = "Admin,Moderator")]
+        public async Task<IActionResult> Index(int page)
 		{
 			double count = await _context.Products.CountAsync();
 
@@ -35,7 +38,8 @@ namespace Malefashion.Areas.Admin.Controllers
 			};
 			return View(pagination);
 		}
-		public async Task<IActionResult> Create()
+        [Authorize(Roles = "Admin,Moderator")]
+        public async Task<IActionResult> Create()
 		{
 			var vm = new CreateProductVM
 			{
@@ -221,11 +225,12 @@ namespace Malefashion.Areas.Admin.Controllers
 
 			return RedirectToAction(nameof(Index));
 		}
-		public async Task<IActionResult> Delete(int id,bool confirim)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int id,bool confirim)
 		{
-			if (id <= 0) return BadRequest();
+			if (id <= 0) throw new WrongRequestException("Your request is wrong");
 			var existed = await _context.Products.Include(p => p.ProductImages).FirstOrDefaultAsync(c => c.Id == id);
-			if (existed is null) return NotFound();
+			if (existed is null) throw new NotFoundException("There is no such product");
 
 			if (confirim)
 			{
@@ -245,17 +250,17 @@ namespace Malefashion.Areas.Admin.Controllers
 			}
 			
 		}
-
-		public async Task<IActionResult> Update(int id)
+        [Authorize(Roles = "Admin,Moderator")]
+        public async Task<IActionResult> Update(int id)
 		{
-			if (id <= 0) return BadRequest();
+			if (id <= 0) throw new WrongRequestException("Your request is wrong");
 			var product = await _context.Products
 				.Include(p => p.ProductImages)
 				.Include(p => p.ProductSizes)
 				.Include(p => p.ProductColors)
 				.Include(p => p.ProductTags)
 				.FirstOrDefaultAsync(p => p.Id == id);
-			if (product == null) return NotFound();
+			if (product == null) throw new NotFoundException("There is no such product");
 			var vm = new UpdateProductVM
 			{
 				Name = product.Name,
@@ -280,6 +285,8 @@ namespace Malefashion.Areas.Admin.Controllers
 
 		public async Task<IActionResult> Update(int id, UpdateProductVM productVM)
 		{
+			if (id <= 0) throw new WrongRequestException("Your request is wrong");
+
 			Product? existed = await _context.Products
 				.Include(p => p.ProductImages)
 				.Include(p => p.ProductSizes)
@@ -296,7 +303,7 @@ namespace Malefashion.Areas.Admin.Controllers
 
 				return View(productVM);
 			}
-			if (existed is null) return NotFound();
+			if (existed is null) throw new NotFoundException("There is no such product"); 
 
 			bool result = await _context.Products.AnyAsync(c => c.CategoryId == productVM.CategoryId);
 		
@@ -447,5 +454,24 @@ namespace Malefashion.Areas.Admin.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-	}
+
+
+
+        [Authorize(Roles = "Admin,Moderator")]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id <= 0) return BadRequest();
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .Include(p => p.ProductTags).ThenInclude(pt => pt.Tag)
+                .Include(p => p.ProductColors).ThenInclude(pc => pc.Color)
+                .Include(p => p.ProductImages)
+                .Include(p => p.ProductSizes).ThenInclude(ps => ps.Size)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            if (product == null) return NotFound();
+
+            return View(product);
+        }
+
+    }
 }

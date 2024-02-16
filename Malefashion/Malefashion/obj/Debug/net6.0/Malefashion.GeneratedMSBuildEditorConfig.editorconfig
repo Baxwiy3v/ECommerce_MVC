@@ -16,6 +16,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Areas/Admin/Views/Banner/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmFubmVyXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Areas/Admin/Views/Banner/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmFubmVyXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Areas/Admin/Views/Banner/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmFubmVyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Areas/Admin/Views/Blog/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQmxvZ1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -90,6 +102,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Areas/Admin/Views/Product/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Areas/Admin/Views/Product/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUHJvZHVjdFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Areas/Admin/Views/Product/Index.cshtml]
@@ -222,6 +238,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Views/Home/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Views/Home/ErrorPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvclBhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Asus/Desktop/ECommerce_MVC/Malefashion/Malefashion/Views/Home/Index.cshtml]

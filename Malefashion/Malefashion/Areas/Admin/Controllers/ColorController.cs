@@ -1,6 +1,8 @@
 ﻿using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +17,8 @@ public class ColorController : Controller
 	{
 		_context = context;
 	}
-	public async Task<IActionResult> Index(int page)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Index(int page)
 	{
 		double count = await _context.Colors.CountAsync();
 
@@ -32,7 +35,8 @@ public class ColorController : Controller
 
 		return View(pagination);
 	}
-	public IActionResult Create()
+    [Authorize(Roles = "Admin,Moderator")]
+    public IActionResult Create()
 	{
 		return View();
 	}
@@ -60,14 +64,15 @@ public class ColorController : Controller
 
 		return RedirectToAction(nameof(Index));
 	}
-	public async Task<IActionResult> Update(int id)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Update(int id)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 
 		Color? color = await _context.Colors.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (color == null) return NotFound();
+		if (color == null) throw new NotFoundException("There is no such Color");
 
 		UpdateColorVM colorVM = new UpdateColorVM
 		{
@@ -85,13 +90,13 @@ public class ColorController : Controller
 
 	public async Task<IActionResult> Update(int id, UpdateColorVM colorVM)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 		if (!ModelState.IsValid) return View(colorVM);
 
 		Color? existed = await _context.Colors.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed == null) return NotFound();
+		if (existed == null) throw new NotFoundException("There is no such Color");
 
 		bool result = await _context.Colors.AnyAsync(c => c.Name.Trim().ToLower() == colorVM.Name.Trim().ToLower() && c.Id != id);
 
@@ -107,14 +112,14 @@ public class ColorController : Controller
 		return RedirectToAction(nameof(Index));
 	}
 
-
-	public async Task<IActionResult> Delete(int id, bool confirim)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id, bool confirim)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 
 		var existed = await _context.Colors.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed is null) return NotFound();
+		if (existed is null) throw new NotFoundException("There is no such Color");
 
 		if (confirim)
 		{

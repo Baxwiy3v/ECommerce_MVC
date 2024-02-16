@@ -1,7 +1,9 @@
 ﻿using Malefashion.Areas.Admin.ViewModels;
 using Malefashion.DAL;
 using Malefashion.Models;
+using Malefashion.Utilities.Exceptions;
 using Malefashion.Utilities.Extentions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +19,9 @@ public class TeamController : Controller
 
 		_env = env;
 	}
-	public async Task<IActionResult> Index(int page)
+
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Index(int page)
 	{
 		double count = await _context.Teams.CountAsync();
 
@@ -32,7 +36,9 @@ public class TeamController : Controller
 		};
 		return View(pagination);
 	}
-	public async Task<IActionResult>  Create()
+
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult>  Create()
 	{
 		var vm = new CreateTeamVM
 		{
@@ -77,12 +83,12 @@ public class TeamController : Controller
 		await _context.SaveChangesAsync();
 		return RedirectToAction(nameof(Index));
 	}
-
-	public async Task<IActionResult> Delete(int id, bool confirim)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id, bool confirim)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 		Team? team = await _context.Teams.FirstOrDefaultAsync(s => s.Id == id);
-		if (team == null) return NotFound();
+		if (team == null) throw new NotFoundException("There is no such team");
 		if (confirim)
 		{
 
@@ -97,12 +103,12 @@ public class TeamController : Controller
 			return View(team);
 		}
 	}
-
-	public async Task<IActionResult> Update(int id)
+    [Authorize(Roles = "Admin,Moderator")]
+    public async Task<IActionResult> Update(int id)
 	{
-		if (id <= 0) return BadRequest();
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
 		Team? team = await _context.Teams.FirstOrDefaultAsync(c => c.Id == id);
-		if (team is null) return NotFound();
+		if (team is null) throw new NotFoundException("There is no such team");
 
 		UpdateTeamVM vm = new UpdateTeamVM
 		{
@@ -119,6 +125,8 @@ public class TeamController : Controller
 	[HttpPost]
 	public async Task<IActionResult> Update(int id, UpdateTeamVM teamVM)
 	{
+		if (id <= 0) throw new WrongRequestException("Your request is wrong");
+
 		if (!ModelState.IsValid)
 		{
 			teamVM.Departments = await _context.Departments.ToListAsync();
@@ -128,9 +136,9 @@ public class TeamController : Controller
 
 		Team? existed = await _context.Teams.FirstOrDefaultAsync(c => c.Id == id);
 
-		if (existed is null) return NotFound();
+		if (existed is null)  throw new NotFoundException("There is no such team");
 
-	
+
 		if (teamVM.Photo is not null)
 		{
 			if (!teamVM.Photo.ValidateType())
