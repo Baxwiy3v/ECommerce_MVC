@@ -36,15 +36,31 @@
 		border-bottom: none;
 	}
 
+	.product-details-container {
+		border: 1px solid #ccc;
+		padding: 15px;
+		border-radius: 5px;
+		background-color: #f9f9f9;
+	}
+
+	.product-details-option {
+		margin-bottom: 10px;
+	}
+
+	.title {
+		font-weight: bold;
+		color: #333;
+	}
+
 </style>
 
 <div class="container-fluid">
 	<div class="row px-xl-5">
 		<div class="col-12">
 			<div class="breadcrumb bg-light mb-30">
-				
+
 				<a class="breadcrumb-item text-dark" asp-action="Index" asp-controller="Home">Home</a>
-				<a class="breadcrumb-item text-dark" asp-action="Shoppage" asp-controller="Home">Shop</a>
+				<a class="breadcrumb-item text-dark" asp-action="Index" asp-controller="Shop">Shop</a>
 				<span class="breadcrumb-item active">Shop Detail</span>
 			</div>
 
@@ -61,7 +77,7 @@
 					@for (int i = 0; i < Model.Product.ProductImages.Count; i++)
 					{
 						<div class="carousel-item @(i == 0 ? "active" : "")   ">
-							<span><img class="w-100 h-100" src="~/img/product/@Model.Product.ProductImages[i].Url" alt="Image"></span>
+							<span><img style="height:720px;width:720px;" src="~/img/product/@Model.Product.ProductImages[i].Url" alt="Image"></span>
 						</div>
 					}
 				</div>
@@ -97,11 +113,11 @@
 				</div>
 
 
-			
+
 				<div class="selector-wrap size-option">
 					<span class="selector-title border-bottom-0">Sizes</span>
 					<select class="nice-select wide rounded-0">
-						
+
 						@foreach (ProductSize pSize in Model.Product.ProductSizes)
 						{
 
@@ -124,39 +140,47 @@
 
 				<br />
 
+
 				<div class="product__details__cart__option">
 					<div class="quantity">
 						<div class="pro-qty">
 							<input type="text" value="1">
 						</div>
 					</div>
-					<a asp-controller="Basket" asp-action="AddBasket" asp-route-id="@Model.Product.Id" class="primary-btn">add to cart</a>
+					<a asp-controller="Basket" asp-action="AddBasket" asp-route-id="@Model.Product.Id" class="primary-btn"> <i class="fa fa-shopping-cart"></i>add to cart</a>
+				</div>
+				<div class="product__details__cart__option">
+					<a asp-action="AddWishlist" asp-controller="Home" asp-route-id="@Model.Product.Id" class="primary-btn"> <i class="fa fa-heart"></i> add to wishlist</a>
+					
+				</div>
 
-					<div class="product__details__last__option">
 
+				<div class="product-details-container">
+
+					<div class="product-details-option">
 						<span class="title">SKU:</span>
 						<a>@Model.Product.SKU</a>
-
-						<a></a>
 					</div>
 
-					<div class="product__details__last__option">
-
-
-						<span class="title">Categories:</span>
+					<div class="product-details-option">
+						<span class="title">Category:</span>
 						<a>@Model.Product.Category.Name</a>
 					</div>
-					<div class="product__details__last__option">
-						<span class="title">Tags :</span>
-						@foreach (ProductTag pTag in Model.Product.ProductTags)
-						{
 
-							<a>@pTag.Tag.Name@(pTag != Model.Product.ProductTags[Model.Product.ProductTags.Count - 1] ? "," : "")</a>
+					<div class="product-details-option">
 
-						}
+						<div class="tags">
+							<span class="title">Tag :</span>
+							@foreach (ProductTag pTag in Model.Product.ProductTags)
+							{
+								<a>@pTag.Tag.Name@(pTag != Model.Product.ProductTags[Model.Product.ProductTags.Count - 1] ? "," : "")</a>
+							}
+						</div>
 					</div>
-
 				</div>
+
+
+
 
 
 			</div>
@@ -334,12 +358,12 @@
 							<span><img style="height:275px;width:375px;" src="~/img/product/@product.ProductImages.FirstOrDefault(pi=>pi.IsPrimary==true).Url " /></span>
 							<ul class="product__hover">
 								<li> <a class="btn btn-outline-warning" asp-controller="Basket" asp-action="AddBasket" asp-route-id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
-								
+
 								<li><a class="btn btn-outline-warning" asp-action="AddWishlist" asp-controller="Home" asp-route-id="@product.Id"> <i class="fa fa-heart"></i></a></li>
 
 							</ul>
 						</div><br>
-						<div >
+						<div>
 							<a class="btn btn-outline-warning" asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id">@product.Name</a><br><br>
 
 							<h5>$@product.Price</h5>

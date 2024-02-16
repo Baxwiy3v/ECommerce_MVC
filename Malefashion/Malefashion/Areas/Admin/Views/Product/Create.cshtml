@@ -35,7 +35,11 @@
 							<input asp-for="Description" class="form-control" placeholder="Description">
 							<span class="text-danger" asp-validation-for="Description"></span>
 						</div>
-
+						<div class="form-group">
+							<label asp-for="Filter">Filter</label>
+							<input asp-for="Filter" class="form-control" placeholder="Filter">
+							<span class="text-danger" asp-validation-for="Filter"></span>
+						</div>
 						<div class="form-group">
 							<label asp-for="CategoryId">Category</label>
 							<select asp-for="CategoryId" asp-items="new SelectList(Model.Categories,nameof(Category.Id),nameof(Category.Name))" class="form-control">

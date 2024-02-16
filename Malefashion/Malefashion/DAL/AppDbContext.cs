@@ -31,6 +31,7 @@ namespace Malefashion.DAL
         public DbSet<Partner> Partners { get; set; }
         public DbSet<WishList> WishLists { get; set; }
 		public DbSet<Banner> Banners { get; set; }
+		
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

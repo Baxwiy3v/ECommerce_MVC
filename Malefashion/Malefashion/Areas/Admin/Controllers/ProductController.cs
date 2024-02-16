@@ -153,6 +153,7 @@ namespace Malefashion.Areas.Admin.Controllers
 				Price = productVM.Price,
 				CategoryId = (int)productVM.CategoryId,
 				Description = productVM.Description,
+				Filter = productVM.Filter,
 				SKU = productVM.SKU,
 				ProductTags = new(),
 				ProductColors = new(),
@@ -259,6 +260,7 @@ namespace Malefashion.Areas.Admin.Controllers
 			{
 				Name = product.Name,
 				Description = product.Description,
+				Filter = product.Filter,
 				SKU = product.SKU,
 				Price = product.Price,
 				CategoryId = product.CategoryId,
@@ -435,6 +437,7 @@ namespace Malefashion.Areas.Admin.Controllers
 
 			existed.Name = productVM.Name;
 			existed.Description = productVM.Description;
+			existed.Filter = productVM.Filter;
 			existed.SKU = productVM.SKU;
 			if (productVM.Price != existed.Price) existed.OldPrice = existed.Price;
 

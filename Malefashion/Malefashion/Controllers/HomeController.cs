@@ -125,10 +125,6 @@ public class HomeController : Controller
 		};
 		return View(vm);
 	}
-
-
-
-	
-
+    
 
 }
