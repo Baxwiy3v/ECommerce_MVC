@@ -14,7 +14,7 @@ namespace Malefashion.Configurations
             builder.Property(s => s.SubTitle).IsRequired().HasMaxLength(50);
 
 
-            builder.Property(s => s.Description).IsRequired(false).HasMaxLength(100);
+            builder.Property(s => s.Description).IsRequired(false).HasMaxLength(150);
 
 
             builder.HasIndex(s => s.Order).IsUnique();

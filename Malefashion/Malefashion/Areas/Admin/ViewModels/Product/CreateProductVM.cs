@@ -5,6 +5,7 @@ namespace Malefashion.Areas.Admin.ViewModels;
 
 public class CreateProductVM
 {
+	[MaxLength(50)]
 	public string Name { get; set; }
 	public decimal Price { get; set; }
 	public string? Description { get; set; }

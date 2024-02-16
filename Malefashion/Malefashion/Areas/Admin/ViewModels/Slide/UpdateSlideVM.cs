@@ -1,9 +1,14 @@
-﻿namespace Malefashion.Areas.Admin.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Malefashion.Areas.Admin.ViewModels;
 
 public class UpdateSlideVM
 {
+	[MaxLength(50)]
 	public string Title { get; set; }
+	[MaxLength(50)]
 	public string SubTitle { get; set; }
+	[MaxLength(150)]
 	public string? Description { get; set; }
 	public IFormFile? Photo { get; set; }
 	public string? ImageUrl { get; set; } 

@@ -17,7 +17,7 @@
 								<p>
 									@slide.Description
 								</p>
-								<a href="#" class="primary-btn">@slide.ButtonTitle <span class="arrow_right"></span></a>
+								<a asp-action="Index" asp-controller="Shop" class="primary-btn">@slide.ButtonTitle <span class="arrow_right"></span></a>
 								<div class="hero__social">
 									<a href="@slide.FbLink"><i class="fa fa-facebook"></i></a>
 									<a href="@slide.TwLink"><i class="fa fa-twitter"></i></a>
@@ -45,7 +45,7 @@
 					</div>
 					<div class="banner__item__text">
 						<h2>Clothing Collections 2030</h2>
-						<a href="#">Shop now</a>
+						<a asp-action="Index" asp-controller="Shop">Shop now</a>
 					</div>
 				</div>
 			</div>
@@ -56,7 +56,7 @@
 					</div>
 					<div class="banner__item__text">
 						<h2>Accessories</h2>
-						<a href="#">Shop now</a>
+						<a asp-action="Index" asp-controller="Shop">Shop now</a>
 					</div>
 				</div>
 			</div>
@@ -67,7 +67,7 @@
 					</div>
 					<div class="banner__item__text">
 						<h2>Shoes Spring 2030</h2>
-						<a href="#">Shop now</a>
+						<a asp-action="Index" asp-controller="Shop">Shop now</a>
 					</div>
 				</div>
 			</div>
@@ -78,23 +78,72 @@
 <!-- Product Section Begin -->
 
 
-<section class="product spad">
+<div class="product-area section-space-top-100">
 	<div class="container">
+		<div class="section-title-wrap">
+			<h2 class="section-title mb-0">Our Products</h2>
+		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				<ul class="filter__controls">
-					<li class="active" data-filter="*">Featured</li>
-					<li data-filter=".new-arrivals">Bestseller</li>
-					<li data-filter=".hot-sales">Latest</li>
+				<ul class="filter__controls"
+					id="myTab"
+					role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="active btn btn-dark"
+						   id="featured-tab"
+						   data-bs-toggle="tab"
+						   href="#featured"
+						   role="tab"
+						   aria-controls="featured"
+						   aria-selected="true">
+							Featured
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="btn btn-dark" id="bestseller-tab"
+						   data-bs-toggle="tab"
+						   href="#bestseller"
+						   role="tab"
+						   aria-controls="bestseller"
+						   aria-selected="false">
+							Bestseller
+						</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="btn btn-dark" id="latest-tab"
+						   data-bs-toggle="tab"
+						   href="#latest"
+						   role="tab"
+						   aria-controls="latest"
+						   aria-selected="false">
+							Latest
+						</a>
+					</li>
 				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active"
+						 id="featured"
+						 role="tabpanel"
+						 aria-labelledby="featured-tab">
+						@await Component.InvokeAsync("Product")
+					</div>
+					<div class="tab-pane fade"
+						 id="bestseller"
+						 role="tabpanel"
+						 aria-labelledby="bestseller-tab">
+						@await Component.InvokeAsync("Product",2)
+					</div>
+					<div class="tab-pane fade"
+						 id="latest"
+						 role="tabpanel"
+						 aria-labelledby="latest-tab">
+						@await Component.InvokeAsync("Product",3)
+					</div>
+				</div>
 			</div>
 		</div>
-
-
-		@await Component.InvokeAsync("Product");
-
 	</div>
-</section>
+</div>
 
 
 
@@ -192,7 +241,7 @@
 				<div class="col-lg-4 col-md-6 col-sm-6">
 					<div class="blog__item">
 						<div class="blog__item__text">
-							<span> <img src="~/img/blog/@blog.ImageUrl" alt="@blog.Name" />  </span>
+							<span> <img style="height:200px;width:200px;" src="~/img/blog/@blog.ImageUrl" alt="@blog.Name" />  </span>
 							<span><img src="~/img/icon/calendar.png"> @blog.Data</span>
 							<h5>@blog.Name</h5>
 							<a href="#">@blog.ButtonTitle</a>

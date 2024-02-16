@@ -14,9 +14,13 @@ public class ShopController : Controller
 	{
 		_context = context;
 	}
-	public async Task<IActionResult> Index(string? search, int? order,int? categoryId )
+	public async Task<IActionResult> Index(string? search, int? order,int? categoryId, int page)
 	{
-		IQueryable<Product> queryable = _context.Products.Include(p => p.ProductImages).AsQueryable();
+
+		double count = await _context.Products.CountAsync();
+
+
+		IQueryable<Product> queryable = _context.Products.Skip(page * 6).Take(6).Include(p => p.ProductImages).AsQueryable();
 
 		switch (order)
 		{
@@ -44,9 +48,10 @@ public class ShopController : Controller
 			queryable=queryable.Where(c=>c.CategoryId==categoryId);
 		}
 
-
 		ShopVM vm = new ShopVM
 		{
+			TotalPage = Math.Ceiling(count / 6),
+			CurrentPage = page,
 			Categories = await _context.Categories.Include(c => c.Products).ToListAsync(),
 			Products = await queryable.ToListAsync(),
 			CategoryID = categoryId,

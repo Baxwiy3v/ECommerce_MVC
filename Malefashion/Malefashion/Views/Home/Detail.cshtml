@@ -331,7 +331,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
 					<div class="product__item">
 						<div class="product__item__pic set-bg">
-							<span><img src="~/img/product/@product.ProductImages.FirstOrDefault(pi=>pi.IsPrimary==true).Url " /></span>
+							<span><img style="height:275px;width:375px;" src="~/img/product/@product.ProductImages.FirstOrDefault(pi=>pi.IsPrimary==true).Url " /></span>
 							<ul class="product__hover">
 								<li> <a class="btn btn-outline-warning" asp-controller="Basket" asp-action="AddBasket" asp-route-id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
 								

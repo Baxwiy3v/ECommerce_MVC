@@ -1,11 +1,16 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Malefashion.Areas.Admin.ViewModels;
 
 public class CreateSlideVM
 {
+	[MaxLength(50)]
 	public string Title { get; set; }
+	[MaxLength(50)]
+	public string SubTitle { get; set; }
 
-	public string SubTitle { get; set; } 
+	[MaxLength(100)]
 	public string? Description { get; set; }
 
 	public IFormFile Photo { get; set; }

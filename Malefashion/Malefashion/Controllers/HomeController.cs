@@ -128,45 +128,7 @@ public class HomeController : Controller
 
 
 
-	public async Task<IActionResult> ShopPage(int page, int sortId, int? catId)
-	{
-		List<Product> products;
-		double count;
-		if (catId <= 0) return BadRequest();
-		if (catId is not null)
-		{
-			products = await _context.Products.Skip(page * 3).Take(3).Include(c => c.Category).Include(p => p.ProductImages).Where(p => p.CategoryId == catId).ToListAsync();
-			count = await _context.Products.Include(c => c.Category).Where(p => p.CategoryId == catId).CountAsync();
-		}
-		else
-		{
-			products = await _context.Products.Skip(page * 3).Take(3).Include(c => c.Category).Include(p => p.ProductImages).ToListAsync();
-			count = await _context.Products.CountAsync();
-		}
-
-		switch (sortId)
-		{
-			case 1:
-				products = products.OrderBy(p => p.CreatedTime).ToList();
-				break;
-			case 2:
-				products = products.OrderBy(p => p.Name).ToList();
-				break;
-			case 3:
-				products = products.OrderBy(p => p.Price).ToList();
-				break;
-			default:
-				break;
-		}
-
-		PaginationVM<Product> pagination = new()
-		{
-			TotalPage = Math.Ceiling(count / 3),
-			CurrentPage = page,
-			Items = products
-		};
-		return View(pagination);
-	}
+	
 
 
 }
