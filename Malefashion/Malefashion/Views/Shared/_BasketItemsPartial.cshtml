@@ -1,4 +1,4 @@
-﻿@model List<BasketItemVM>
+﻿@* @model List<BasketItemVM>
 @{
     decimal total = 0;
 }
@@ -31,7 +31,7 @@
                 </a>
                 <a asp-action="Detail" asp-controller="Detail" asp-route-id="@item.Id"
                    class="product-item_img">
-                    <img src="~/assets/images/website-images/@item.Image"
+                    <img src="~/img/product/@item.Image"
                          alt="@item.Name" />
                 </a>
                 <div class="product-item_content">
@@ -52,3 +52,4 @@
     <a asp-controller="Basket" asp-action="Index" class="btn btn-dark">View Cart</a>
     <a asp-controller="Basket" asp-action="Checkout" class="btn btn-dark">Checkout</a>
 </div>
+ *@

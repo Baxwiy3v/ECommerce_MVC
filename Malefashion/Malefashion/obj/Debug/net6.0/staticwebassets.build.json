@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "z0Jn7n+uj0DUZaT0U/4qxhpFliSGR8TOqQXEfCK/fE8=",
+  "Hash": "Xx8G7YWrXjKX9D3NlyHbqscqp8QXG65U6bxGd3OlAhs=",
   "Source": "Malefashion",
   "BasePath": "_content/Malefashion",
   "Mode": "Default",
@@ -2618,6 +2618,57 @@
       "OriginalItemSpec": "wwwroot\\img\\about\\testimonial-pic.jpg"
     },
     {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\banner\\1d5ada4a-bb8d-455e-b6c1-a13f01a6dd59.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/banner/1d5ada4a-bb8d-455e-b6c1-a13f01a6dd59.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\banner\\1d5ada4a-bb8d-455e-b6c1-a13f01a6dd59.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\banner\\85dc863a-0091-4f06-9125-693c79a472f9.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/banner/85dc863a-0091-4f06-9125-693c79a472f9.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\banner\\85dc863a-0091-4f06-9125-693c79a472f9.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\banner\\af334997-07e9-4f07-9163-4142650dc259.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/banner/af334997-07e9-4f07-9163-4142650dc259.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\banner\\af334997-07e9-4f07-9163-4142650dc259.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\banner\\banner-1.jpg",
       "SourceId": "Malefashion",
       "SourceType": "Discovered",
@@ -2669,12 +2720,12 @@
       "OriginalItemSpec": "wwwroot\\img\\banner\\banner-3.jpg"
     },
     {
-      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\banner\\bf9b5cfb-ec3b-4933-a500-a24f006d7d75.jpg",
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\banner\\e4eafac3-036f-4480-80e2-1aec54e259e7.jpg",
       "SourceId": "Malefashion",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
       "BasePath": "_content/Malefashion",
-      "RelativePath": "img/banner/bf9b5cfb-ec3b-4933-a500-a24f006d7d75.jpg",
+      "RelativePath": "img/banner/e4eafac3-036f-4480-80e2-1aec54e259e7.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -2683,7 +2734,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\banner\\bf9b5cfb-ec3b-4933-a500-a24f006d7d75.jpg"
+      "OriginalItemSpec": "wwwroot\\img\\banner\\e4eafac3-036f-4480-80e2-1aec54e259e7.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\blog\\48480b36-2f8d-4210-932a-3e9f13172fb9.jpg",

@@ -116,7 +116,7 @@ public class HomeController : Controller
 	public async Task<IActionResult> Detail(int id)
 	{
 		if (id <= 0) throw new WrongRequestException("Your request is wrong");
-        Product product = await _context.Products.Include(c => c.Category).Include(p => p.ProductTags).ThenInclude(pt => pt.Tag).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductImages).FirstOrDefaultAsync(p => p.Id == id);
+        Product product = await _context.Products.Include(p => p.Ratings).Include(c => c.Category).Include(p => p.ProductTags).ThenInclude(pt => pt.Tag).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductImages).FirstOrDefaultAsync(p => p.Id == id);
 		if (product == null) throw new NotFoundException("There is no such product");
         var relatedProducts = await _context.Products.Include(p => p.ProductImages).Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToListAsync();
 		DetailVM vm = new()
@@ -129,7 +129,27 @@ public class HomeController : Controller
 
 
 
-    public IActionResult ErrorPage(string error)
+	[HttpPost]
+	public async Task<IActionResult> AddRating(int productId, int stars)
+	{
+		var product = await _context.Products.Include(p => p.Ratings).FirstOrDefaultAsync(p => p.Id == productId);
+		if (product != null)
+		{
+			
+			_context.Ratings.RemoveRange(product.Ratings);
+
+			
+			var rating = new Rating { Stars = stars };
+			product.Ratings.Add(rating);
+
+			
+			await _context.SaveChangesAsync();
+		}
+		return Redirect(Request.Headers["Referer"]);
+	}
+
+
+	public IActionResult ErrorPage(string error)
     {
         return View(model: error);
     }
