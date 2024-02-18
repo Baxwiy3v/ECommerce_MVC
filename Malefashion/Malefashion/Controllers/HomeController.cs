@@ -147,7 +147,7 @@ public class HomeController : Controller
 		}
 		return Redirect(Request.Headers["Referer"]);
 	}
-
+	
 
 	public IActionResult ErrorPage(string error)
     {
