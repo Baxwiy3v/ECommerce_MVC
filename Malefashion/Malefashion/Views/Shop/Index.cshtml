@@ -27,7 +27,7 @@
 			<div class="col-lg-3">
 				<div class="shop__sidebar">
 					<div class="shop__sidebar__search">
-						<form asp-route-page="@Model.CurrentPage" asp-action="Index" asp-controller="Shop" asp-route-categoryId="@Model.CategoryID" asp-route-order="@Model.Order">
+						<form asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice" asp-route-page="@Model.CurrentPage" asp-action="Index" asp-controller="Shop" asp-route-categoryId="@Model.CategoryID" asp-route-order="@Model.Order">
 							<input name="search" value="@(Model.Search==null?"":Model.Search)" type="text" placeholder="Search...">
 							<button type="submit"><span class="icon_search"></span></button>
 						</form>
@@ -42,11 +42,11 @@
 									<div class="card-body">
 										<div class="shop__sidebar__categories">
 											<ul class="nice-scroll">
-												<li><a asp-action="Index" asp-controller="Shop" asp-route-order="@Model.Order" asp-route-search="@Model.Search" asp-route-page="@Model.CurrentPage">All </a></li>
+												<li><a asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice" asp-action="Index" asp-controller="Shop" asp-route-order="@Model.Order" asp-route-search="@Model.Search" asp-route-page="@Model.CurrentPage">All </a></li>
 												@foreach (var category in Model.Categories)
 												{
 													<li>
-														<a asp-route-page="@Model.CurrentPage" asp-action="Index" asp-controller="Shop" asp-route-categoryId="@category.Id" asp-route-order="@Model.Order" asp-route-search="@Model.Search">
+														<a asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice" asp-route-page="@Model.CurrentPage" asp-action="Index" asp-controller="Shop" asp-route-categoryId="@category.Id" asp-route-order="@Model.Order" asp-route-search="@Model.Search">
 
 															@category.Name (@category.Products.Count)
 
@@ -61,23 +61,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="card">
-								<div class="card-heading">
-									<a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
-								</div>
-								<div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
-									<div class="card-body">
-										<div class="shop__sidebar__brand">
-											<ul>
-												<li><a href="#">Louis Vuitton</a></li>
-												<li><a href="#">Chanel</a></li>
-												<li><a href="#">Hermes</a></li>
-												<li><a href="#">Gucci</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
+
 							<div class="card">
 								<div class="card-heading">
 									<a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
@@ -85,14 +69,16 @@
 								<div id="collapseThree" class="collapse show" data-parent="#accordionExample">
 									<div class="card-body">
 										<div class="shop__sidebar__price">
-											<ul>
-												<li><a href="#">$0.00 - $50.00</a></li>
-												<li><a href="#">$50.00 - $100.00</a></li>
-												<li><a href="#">$100.00 - $150.00</a></li>
-												<li><a href="#">$150.00 - $200.00</a></li>
-												<li><a href="#">$200.00 - $250.00</a></li>
-												<li><a href="#">250.00+</a></li>
-											</ul>
+											<form asp-controller="Shop" asp-action="Index" asp-route-page="@Model.CurrentPage" asp-route-order="@Model.Order" asp-route-search="@Model.Search" asp-route-categoryId="@Model.CategoryID" method="get">
+												<label for="minPrice">Minimum Price:</label>
+												<input type="number" name="minPrice" id="minPrice" />
+
+												<label for="maxPrice">Maksimum Price:</label>
+												<input type="number" name="maxPrice" id="maxPrice" />
+
+												<label>.</label>
+												<button class="btn btn-outline-primary" type="submit">Submit</button>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -147,33 +133,6 @@
 								<div id="collapseFive" class="collapse show" data-parent="#accordionExample">
 									<div class="card-body">
 										<div class="shop__sidebar__color">
-											<label class="c-1" for="sp-1">
-												<input type="radio" id="sp-1">
-											</label>
-											<label class="c-2" for="sp-2">
-												<input type="radio" id="sp-2">
-											</label>
-											<label class="c-3" for="sp-3">
-												<input type="radio" id="sp-3">
-											</label>
-											<label class="c-4" for="sp-4">
-												<input type="radio" id="sp-4">
-											</label>
-											<label class="c-5" for="sp-5">
-												<input type="radio" id="sp-5">
-											</label>
-											<label class="c-6" for="sp-6">
-												<input type="radio" id="sp-6">
-											</label>
-											<label class="c-7" for="sp-7">
-												<input type="radio" id="sp-7">
-											</label>
-											<label class="c-8" for="sp-8">
-												<input type="radio" id="sp-8">
-											</label>
-											<label class="c-9" for="sp-9">
-												<input type="radio" id="sp-9">
-											</label>
 										</div>
 									</div>
 								</div>
@@ -205,20 +164,24 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<div class="shop__product__option__left">
-								<p>Showing 1–12 of 126 results</p>
+								
+
+
+
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<div class="shop__product__option__right">
 
-								<form  asp-action="Index" asp-controller="Shop" asp-route-categoryId="@Model.CategoryID" asp-route-search="@Model.Search" asp-route-page="@Model.CurrentPage">
+								<form asp-action="Index" asp-controller="Shop" asp-route-categoryId="@Model.CategoryID" asp-route-search="@Model.Search" asp-route-page="@Model.CurrentPage" asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice">
 
 									<select onchange="this.form.submit()" name="order">
-										<option value="" >   Default</option>
-										<option value="1">  Sort by Name</option>
-										<option value="2">  Sort by Price</option>
-										<option value="3">  Sort by Data</option>
+										<option value="">Default</option>
+										<option value="1" >Sort by Name</option>
+										<option value="2" >Sort by Price</option>
+										<option value="3" >Sort by Data</option>
 									</select>
+									
 
 								</form>
 
@@ -235,7 +198,7 @@
 									<span><img style="height:275px;width:375px;" src="~/img/product/@product.ProductImages.FirstOrDefault(pi=>pi.IsPrimary==true).Url " /></span>
 
 									<ul class="product__hover">
-										<li> <a  class="btn btn-outline-warning" asp-controller="Basket" asp-action="AddBasket" asp-route-id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
+										<li> <a class="btn btn-outline-warning" asp-controller="Basket" asp-action="AddBasket" asp-route-id="@product.Id"><i class="fa fa-shopping-cart"></i></a></li>
 
 										<li><a class="btn btn-outline-warning" asp-action="AddWishlist" asp-controller="Home" asp-route-id="@product.Id"> <i class="fa fa-heart"></i></a></li>
 									</ul>
@@ -265,14 +228,14 @@
 				<nav aria-label="Page navigation example" style="margin: auto; width: 40%;">
 					<ul class="pagination">
 
-						<li class="page-item  @(Model.CurrentPage==0?"disabled":"") "><a class="page-link" asp-route-page="@(Model.CurrentPage-1)" asp-action="Index" asp-controller="Shop">Previous</a></li>
+						<li class="page-item  @(Model.CurrentPage==0?"disabled":"") "><a asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice" class="page-link" asp-route-page="@(Model.CurrentPage-1)" asp-action="Index" asp-controller="Shop">Previous</a></li>
 						@for (int i = 0; i < Model.TotalPage; i++)
 
 						{
-							<li class="page-item  @(i==Model.CurrentPage?"disabled":"") "><a class="page-link" asp-route-page="@(i)" asp-action="Index" asp-controller="Shop">@(i + 1)</a></li>
+							<li class="page-item  @(i==Model.CurrentPage?"disabled":"") "><a asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice" class="page-link" asp-route-page="@(i)" asp-action="Index" asp-controller="Shop">@(i + 1)</a></li>
 						}
 
-						<li class="page-item  @(Model.CurrentPage==Model.TotalPage-1?"disabled":"") "><a class="page-link" asp-route-page="@(Model.CurrentPage+1)" asp-action="Index" asp-controller="Shop">Next</a></li>
+						<li class="page-item  @(Model.CurrentPage==Model.TotalPage-1?"disabled":"") "><a asp-route-minPrice="@Model.MinPrice" asp-route-maxPrice="@Model.MaxPrice" class="page-link" asp-route-page="@(Model.CurrentPage+1)" asp-action="Index" asp-controller="Shop">Next</a></li>
 					</ul>
 				</nav>
 			</div>

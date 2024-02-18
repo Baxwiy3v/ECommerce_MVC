@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Xx8G7YWrXjKX9D3NlyHbqscqp8QXG65U6bxGd3OlAhs=",
+  "Hash": "gogOJHfe6IGSb03Ut1zunTpxQW1Wu6TixnTaQCdK8GE=",
   "Source": "Malefashion",
   "BasePath": "_content/Malefashion",
   "Mode": "Default",
@@ -3043,6 +3043,23 @@
       "OriginalItemSpec": "wwwroot\\img\\breadcrumb\\bg\\blog2-image1.png"
     },
     {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\Change-Password.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/breadcrumb/bg/Change-Password.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\breadcrumb\\bg\\Change-Password.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\login.jpg",
       "SourceId": "Malefashion",
       "SourceType": "Discovered",
@@ -3060,6 +3077,23 @@
       "OriginalItemSpec": "wwwroot\\img\\breadcrumb\\bg\\login.jpg"
     },
     {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\Recover-a-Forgotten-Password-using-old-password.png",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/breadcrumb/bg/Recover-a-Forgotten-Password-using-old-password.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\breadcrumb\\bg\\Recover-a-Forgotten-Password-using-old-password.png"
+    },
+    {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\register.jpg",
       "SourceId": "Malefashion",
       "SourceType": "Discovered",
@@ -3075,6 +3109,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\breadcrumb\\bg\\register.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb\\bg\\reset.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/breadcrumb/bg/reset.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\breadcrumb\\bg\\reset.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\breadcrumb-bg.jpg",
@@ -3519,6 +3570,23 @@
       "OriginalItemSpec": "wwwroot\\img\\payment.png"
     },
     {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\0a271219-f16b-4331-b02a-1e3132a71094.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/product/0a271219-f16b-4331-b02a-1e3132a71094.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\product\\0a271219-f16b-4331-b02a-1e3132a71094.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\193b13c7-220f-45de-a34f-8a5f6a021ad3.jpg",
       "SourceId": "Malefashion",
       "SourceType": "Discovered",
@@ -3570,6 +3638,23 @@
       "OriginalItemSpec": "wwwroot\\img\\product\\41293c4e-4cd7-4bff-8e2b-09619d2ece9d.jpg"
     },
     {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\41cde426-2db3-48f8-93c1-960bea069e32.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/product/41cde426-2db3-48f8-93c1-960bea069e32.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\product\\41cde426-2db3-48f8-93c1-960bea069e32.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\4525ac87-8bc3-4a5d-b834-1e9d4a3eccda.jpg",
       "SourceId": "Malefashion",
       "SourceType": "Discovered",
@@ -3619,6 +3704,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\product\\541d2c27-f062-4eab-a3c4-d97bff2e262f.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\70eafebc-8991-4387-8341-ce27830de4cb.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/product/70eafebc-8991-4387-8341-ce27830de4cb.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\product\\70eafebc-8991-4387-8341-ce27830de4cb.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\73819003-9dd0-47d3-b259-3ee004f893ad.jpg",
@@ -3704,6 +3806,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\product\\98a82346-dedd-41b2-babc-ef42c92a062e.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\9fa854cf-14fb-402b-be51-77d4d794e1d2.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/product/9fa854cf-14fb-402b-be51-77d4d794e1d2.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\product\\9fa854cf-14fb-402b-be51-77d4d794e1d2.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\a4509277-9277-4891-ad40-f95b5e237b05.jpg",
@@ -3823,23 +3942,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\product\\e4dcea46-4976-4be9-b5db-c54ebdfc7095.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\e6c21877-5a0f-4f19-8886-95edba830db2.jpg",
-      "SourceId": "Malefashion",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
-      "BasePath": "_content/Malefashion",
-      "RelativePath": "img/product/e6c21877-5a0f-4f19-8886-95edba830db2.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\product\\e6c21877-5a0f-4f19-8886-95edba830db2.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\product\\e8636ad7-8ebc-43e5-869d-00860361f412.jpg",

@@ -7,4 +7,5 @@ public class CreateColorVM
     [Required]
     [MaxLength(75)]
     public string Name { get; set; }
+
 }

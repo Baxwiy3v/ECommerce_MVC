@@ -8,5 +8,7 @@ namespace Malefashion.Models
         public int ProductId { get; set; }
         public Color Color { get; set; }
         public Product Product { get; set; }
-    }
+	
+
+	}
 }

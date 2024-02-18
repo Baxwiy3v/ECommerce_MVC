@@ -1,7 +1,10 @@
-﻿@model HeaderVM
+﻿@using Malefashion.Services;
+@model HeaderVM
+@inject LayoutService service
 @{
-    // decimal total = 0;
+    Dictionary<string, string> settings = await service.GetSettings();
 }
+
 <div class="header__top">
     <div class="container">
         <div class="row">
@@ -82,16 +85,16 @@
         </div>
         <div class="col-lg-3 col-md-3">
             <div class="header__nav__option">
-                <a href="#" class="search-switch"><img src="~/img/icon/search.png" alt=""></a>
-                <a asp-action="Wishlist" asp-controller="Home"><img src="~/img/icon/heart.png" alt=""></a>
-                <a asp-action="Index" asp-controller="Basket" ><img src="~/img/icon/cart.png" alt=""> <span>0</span></a>
+                <a href="#" class="search-switch"><img src="~/img/icon/@settings["Search"]" alt=""></a>
+                <a asp-action="Wishlist" asp-controller="Home"><img src="~/img/icon/@settings["Heart"]" alt=""></a>
+                <a asp-action="Index" asp-controller="Basket"><img src="~/img/icon/@settings["Cart"]" alt=""> <span>0</span></a>
               
                
            
             </div>
         </div>
 
-    </div>
+    </div>  
     <div class="canvas__open"><i class="fa fa-bars"></i></div>
 </div>
 

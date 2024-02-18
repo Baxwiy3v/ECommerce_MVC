@@ -324,3 +324,11 @@ C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\run
 C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\Stripe.net.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\MailKit.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\MimeKit.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\System.Formats.Asn1.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\System.Text.Encoding.CodePages.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Asus\Desktop\ECommerce_MVC\Malefashion\Malefashion\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Text.Encoding.CodePages.dll

@@ -2,6 +2,7 @@
 using Malefashion.Interfaces;
 using Malefashion.Models;
 using Malefashion.Models.ViewModels;
+using Malefashion.Models.ViewModels.Mailsender;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,14 +16,16 @@ namespace Malefashion.Controllers
         private readonly SignInManager<AppUser> _signIn;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailService _emailService;
-        public AccountController(UserManager<AppUser> manager, SignInManager<AppUser> signIn, RoleManager<IdentityRole> roleManager, IEmailService emailService)
-        {
-            _manager = manager;
-            _signIn = signIn;
-            _roleManager = roleManager;
-            _emailService = emailService;
-        }
-        public IActionResult Register()
+        private readonly IMailService _mailService;
+		public AccountController(UserManager<AppUser> manager, SignInManager<AppUser> signIn, RoleManager<IdentityRole> roleManager, IEmailService emailService, IMailService mailService)
+		{
+			_manager = manager;
+			_signIn = signIn;
+			_roleManager = roleManager;
+			_emailService = emailService;
+			_mailService = mailService;
+		}
+		public IActionResult Register()
         {
             return View();
         }
@@ -163,8 +166,11 @@ namespace Malefashion.Controllers
             string token = await _manager.GeneratePasswordResetTokenAsync(user);
 
             string link = Url.Action("ResetPassword", "Account", new { userID = user.Id, token = token },HttpContext.Request.Scheme );
-           
-            return Json(link);
+
+            await _mailService.SendEmailAsync(new MailRequestVM { ToEmail=forgotPasswordVM.Email,Subject="ResetPassword",Body=$"<a href='{link}'>ReserPassword</a>" });
+
+
+            return RedirectToAction(nameof(Login));
 		}
 
 		public async Task<IActionResult> ResetPassword(string userId,string token)

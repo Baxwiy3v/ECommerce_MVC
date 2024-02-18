@@ -14,7 +14,7 @@ public class ShopController : Controller
 	{
 		_context = context;
 	}
-	public async Task<IActionResult> Index(string? search, int? order,int? categoryId, int page)
+	public async Task<IActionResult> Index(string? search, int? order,int? categoryId, int page, decimal? minPrice, decimal? maxPrice)
 	{
 
 		double count = await _context.Products.CountAsync();
@@ -37,6 +37,15 @@ public class ShopController : Controller
 				break;
 
 		}
+		if (minPrice.HasValue)
+		{
+			queryable = queryable.Where(p => p.Price >= minPrice.Value);
+		}
+
+		if (maxPrice.HasValue)
+		{
+			queryable = queryable.Where(p => p.Price <= maxPrice.Value);
+		}
 
 		if (!String.IsNullOrEmpty(search))
 		{
@@ -56,7 +65,9 @@ public class ShopController : Controller
 			Products = await queryable.ToListAsync(),
 			CategoryID = categoryId,
 			Order = order,
-			Search = search
+			Search = search,
+			MaxPrice = maxPrice,
+			MinPrice = minPrice
 
 		};
 		return View(vm);

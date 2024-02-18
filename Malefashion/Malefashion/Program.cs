@@ -6,7 +6,7 @@ using Malefashion.Models;
 using Malefashion.Services;
 using Malefashion.ViewComponents;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
+
 using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +25,10 @@ builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Str
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<LayoutService>();
 builder.Services.AddScoped<HeaderViewComponent>();
+builder.Services.AddScoped<FooterViewComponent>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IMailService, MailService>();
 
 var app = builder.Build();
 

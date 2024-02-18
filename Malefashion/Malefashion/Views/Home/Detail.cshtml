@@ -1,6 +1,5 @@
 ﻿@model DetailVM
 
-<!-- Shop Details Section Begin -->
 <style>
 	.selector-wrap {
 		display: flex;
@@ -64,6 +63,9 @@
 		color: gold;
 		cursor: pointer;
 	}
+
+	
+
 </style>
 
 <div class="container-fluid">
@@ -109,13 +111,13 @@
 				
 				<div class="product-info">
 					<div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
-						<h4 style="color: #333; font-size: 20px; margin-bottom: 10px;">@Model.Product.Name</h4>
+						<h4 style="color: #333; font-size: 25px; margin-bottom: 10px;">@Model.Product.Name</h4>
 						<div class="d-flex mb-3">
-							<div class="rating-form">
-								<form asp-controller="Home" asp-action="AddRating" method="post">
+							<div class=" rating-form">
+								<form  asp-controller="Home" asp-action="AddRating" method="post">
 									<input type="hidden" name="productId" value="@Model.Product.Id" />
-									<select  name="stars" onchange="this.form.submit()" class="star-select" style="padding: 5px; border-radius: 3px; border: 1px solid #ccc;">
-										<option disabled selected style="color: black">Rating</option>
+									<select  name="stars" onchange="this.form.submit()" class=" star-select" style="padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+										<option  disabled selected>Rating</option>
 										<option value="1" >&#9733;</option>
 										<option value="2" >&#9733;&#9733;</option>
 										<option value="3" >&#9733;&#9733;&#9733;</option>
@@ -131,7 +133,6 @@
 				</div>
 
 
-
 				<div class="selector-wrap size-option">
 					<span class="selector-title border-bottom-0">Sizes</span>
 					<select class="nice-select wide rounded-0">
@@ -139,7 +140,7 @@
 						@foreach (ProductSize pSize in Model.Product.ProductSizes)
 						{
 
-							<option value="@pSize.Size.Name">@pSize.Size.Name</option>
+							<option  value="@pSize.Size.Name">@pSize.Size.Name</option>
 
 						}
 					</select>
@@ -151,7 +152,7 @@
 					<select class="nice-select wide border-bottom-0 rounded-0">
 						@foreach (ProductColor pColor in Model.Product.ProductColors)
 						{
-							<option value="@pColor.Color.Name">@pColor.Color.Name</option>
+							<option  value="@pColor.Color.Name">@pColor.Color.Name</option>
 						}
 					</select>
 				</div>
@@ -376,7 +377,7 @@
 							</ul>
 						</div><br>
 						<div>
-							<a class="btn btn-outline-warning" asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id">@product.Name</a><br><br>
+							<a class="btn btn-outline-warning" asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id">@product.Name</a><br>
 
 							<h5>$@product.Price</h5>
 							<h6 class="text-muted ml-2">
@@ -398,3 +399,4 @@
 	</div>
 </div>
 <!-- Related Section End -->
+
