@@ -5,7 +5,8 @@ namespace Malefashion.Areas.Admin.ViewModels;
 
 public class UpdateTeamVM
 {
-	public string Name { get; set; }
+    [MaxLength(50)]
+    public string Name { get; set; }
 
 	public IFormFile? Photo { get; set; }
 	public string? ImageUrl { get; set; }

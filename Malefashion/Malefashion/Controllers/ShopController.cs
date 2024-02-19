@@ -3,6 +3,7 @@ using Malefashion.Models;
 using Malefashion.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 
 namespace Malefashion.Controllers;
 
@@ -17,10 +18,10 @@ public class ShopController : Controller
 	public async Task<IActionResult> Index(string? search, int? order,int? categoryId, int page, decimal? minPrice, decimal? maxPrice)
 	{
 
-		double count = await _context.Products.CountAsync();
+		
 
 
-		IQueryable<Product> queryable = _context.Products.Skip(page * 6).Take(6).Include(p => p.ProductImages).AsQueryable();
+		IQueryable<Product> queryable = _context.Products;
 
 		switch (order)
 		{
@@ -57,13 +58,20 @@ public class ShopController : Controller
 			queryable=queryable.Where(c=>c.CategoryId==categoryId);
 		}
 
-		ShopVM vm = new ShopVM
+        double count = queryable.Count();
+
+        queryable = queryable.Skip(page * 6).Take(6).Include(p => p.ProductImages);
+      
+
+        var produtcs = await queryable.ToListAsync();
+
+        ShopVM vm = new ShopVM
 		{
 			TotalPage = Math.Ceiling(count / 6),
 			CurrentPage = page,
 			Categories = await _context.Categories.Include(c => c.Products).ToListAsync(),
-			Products = await queryable.ToListAsync(),
-			CategoryID = categoryId,
+			Products = produtcs,
+            CategoryID = categoryId,
 			Order = order,
 			Search = search,
 			MaxPrice = maxPrice,

@@ -70,7 +70,7 @@ public class BlogController : Controller
 
         string fileName = await blogVM.Photo.CreateFile(_env.WebRootPath,  "img","blog" );
 
-        if (blogVM.ButtonTitle is null) { blogVM.ButtonTitle = "Read More"; }
+       
 
         if (blogVM.ButtonTitle is null) blogVM.ButtonTitle = "Read More";
 
@@ -79,7 +79,8 @@ public class BlogController : Controller
 
             Name = blogVM.Name,
             Data = blogVM.Data,
-            ImageUrl=fileName
+            ImageUrl=fileName,
+            ButtonTitle=blogVM.ButtonTitle
 
         };
 

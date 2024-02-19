@@ -5,6 +5,6 @@ namespace Malefashion.Areas.Admin.ViewModels;
 public class UpdateCategoryVM
 {
 	
-	[MaxLength(75)]
+	[MaxLength(50)]
 	public string Name { get; set; }
 }

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gogOJHfe6IGSb03Ut1zunTpxQW1Wu6TixnTaQCdK8GE=",
+  "Hash": "XjSmfKLv1FykS0/5/IN1dXl/1Sf69OwzP+BrpBOxOug=",
   "Source": "Malefashion",
   "BasePath": "_content/Malefashion",
   "Mode": "Default",
@@ -2463,6 +2463,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\fonts\\fontawesome-webfont.woff2"
+    },
+    {
+      "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\0b8b6703-8d9a-421c-a770-2d211e225f2f.jpg",
+      "SourceId": "Malefashion",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\",
+      "BasePath": "_content/Malefashion",
+      "RelativePath": "img/about/0b8b6703-8d9a-421c-a770-2d211e225f2f.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\about\\0b8b6703-8d9a-421c-a770-2d211e225f2f.jpg"
     },
     {
       "Identity": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\4bf9da89-8f95-4943-a0b6-24d8e64dbb50.jpg",

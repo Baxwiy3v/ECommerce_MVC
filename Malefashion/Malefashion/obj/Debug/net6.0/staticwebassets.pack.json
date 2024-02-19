@@ -605,6 +605,10 @@
       "PackagePath": "staticwebassets\\fonts\\fontawesome-webfont.woff2"
     },
     {
+      "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\0b8b6703-8d9a-421c-a770-2d211e225f2f.jpg",
+      "PackagePath": "staticwebassets\\img\\about\\0b8b6703-8d9a-421c-a770-2d211e225f2f.jpg"
+    },
+    {
       "Id": "C:\\Users\\Asus\\Desktop\\ECommerce_MVC\\Malefashion\\Malefashion\\wwwroot\\img\\about\\4bf9da89-8f95-4943-a0b6-24d8e64dbb50.jpg",
       "PackagePath": "staticwebassets\\img\\about\\4bf9da89-8f95-4943-a0b6-24d8e64dbb50.jpg"
     },
