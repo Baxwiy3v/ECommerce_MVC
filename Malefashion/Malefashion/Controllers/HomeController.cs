@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Malefashion.Utilities.Exceptions;
+using System.Security.Claims;
+using Malefashion.Migrations;
 
 namespace Malefashion.Controllers;
 
@@ -116,9 +118,9 @@ public class HomeController : Controller
 	public async Task<IActionResult> Detail(int id)
 	{
 		if (id <= 0) throw new WrongRequestException("Your request is wrong");
-        Product product = await _context.Products.Include(p => p.Ratings).Include(c => c.Category).Include(p => p.ProductTags).ThenInclude(pt => pt.Tag).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductImages).FirstOrDefaultAsync(p => p.Id == id);
+		Product product = await _context.Products.Include(p => p.Ratings).Include(c => c.Category).Include(p => p.ProductTags).ThenInclude(pt => pt.Tag).Include(p => p.ProductColors).ThenInclude(pc => pc.Color).Include(p => p.ProductSizes).ThenInclude(ps => ps.Size).Include(p => p.ProductImages).FirstOrDefaultAsync(p => p.Id == id);
 		if (product == null) throw new NotFoundException("There is no such product");
-        var relatedProducts = await _context.Products.Include(p => p.ProductImages).Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToListAsync();
+		var relatedProducts = await _context.Products.Include(p => p.ProductImages).Where(p => p.CategoryId == product.CategoryId && p.Id != product.Id).ToListAsync();
 		DetailVM vm = new()
 		{
 			Product = product,
@@ -127,31 +129,99 @@ public class HomeController : Controller
 		return View(vm);
 	}
 
+	private double CalculateAverageRating(int productId)
+	{
+		var ratings = _context.Ratings.Where(r => r.ProductId == productId).ToList();
+
+		if (ratings.Count == 0)
+		{
+			return 0; 
+		}
+
+		var totalStars = 0;
+		foreach (var rating in ratings)
+		{
+			totalStars += rating.Stars;
+		}
+
+		return (double)totalStars / ratings.Count;
+	}
+
+
 
 
 	[HttpPost]
+	[Authorize]
 	public async Task<IActionResult> AddRating(int productId, int stars)
 	{
-		var product = await _context.Products.Include(p => p.Ratings).FirstOrDefaultAsync(p => p.Id == productId);
-		if (product != null)
+		var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+		var product = await _context.Products.FindAsync(productId);
+
+		if (product == null)
 		{
-			
-			_context.Ratings.RemoveRange(product.Ratings);
-
-			
-			var rating = new Rating { Stars = stars };
-			product.Ratings.Add(rating);
-
-			
-			await _context.SaveChangesAsync();
+			return NotFound();
 		}
+
+		var existingRating = await _context.Ratings.FirstOrDefaultAsync(r => r.ProductId == productId && r.UserId == userId);
+
+		if (existingRating != null)
+		{
+			_context.Ratings.Remove(existingRating);
+		}
+
+		var rating = new Rating
+		{
+			Stars = stars,
+			ProductId = productId,
+			UserId = userId
+		};
+		
+		_context.Ratings.Add(rating);
+
+		product.AverageRating = CalculateAverageRating(productId);
+
+		await _context.SaveChangesAsync();
+
+
+
 		return Redirect(Request.Headers["Referer"]);
 	}
-	
+
+	[HttpPost]
+	[Authorize]
+
+	public async Task<IActionResult> AddComment(int productId, string content)
+	{
+		var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+		var product = await _context.Products.FindAsync(productId);
+
+		if (product == null)
+		{
+			return NotFound();
+		}
+
+		var comment = new Comment
+		{
+			Content = content,
+			ProductId = productId,
+			CreatedAt = DateTime.Now,
+			UserId=userId
+		};
+
+		_context.Comments.Add(comment);
+		await _context.SaveChangesAsync();
+
+		return Redirect(Request.Headers["Referer"]);
+	}
+
+
 
 	public IActionResult ErrorPage(string error)
-    {
-        return View(model: error);
-    }
+	{
+		return View(model: error);
+	}
 
 }

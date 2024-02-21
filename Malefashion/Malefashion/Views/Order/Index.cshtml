@@ -1,0 +1,27 @@
+﻿@model List<Order>
+
+<h2>Sifariş keçmişi</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sifariş Nomresi</th>
+            <th>Addrres</th>
+            <th>Price</th>
+            <th>Satın Alma Tarixi</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.Address</td>
+                <td>@order.TotalPrice</td>
+                <td>@order.PurchaseAt.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@(order.Status.HasValue ? (order.Status.Value ? "Gozlemede" : "Legv edildi") : "Tamamlandı")</td>
+            </tr>
+        }
+    </tbody>
+</table>

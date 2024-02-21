@@ -32,6 +32,7 @@ namespace Malefashion.DAL
         public DbSet<WishList> WishLists { get; set; }
 		public DbSet<Banner> Banners { get; set; }
 		public DbSet<Rating> Ratings { get; set; }
+		public DbSet<Comment> Comments { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
