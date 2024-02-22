@@ -1,9 +1,12 @@
 ﻿using Malefashion.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Malefashion.Controllers
 {
+	[Authorize]
 	public class OrderController : Controller
 	{
 		private readonly AppDbContext _context;
@@ -12,12 +15,13 @@ namespace Malefashion.Controllers
         {
 			_context = context;
 		}
-		public IActionResult Index()
+		public async Task<IActionResult>  Index()
 		{
 
-			var userOrders = _context.Orders.Where(o => o.AppUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToList();
+			var userOrders =await _context.Orders.Where(o => o.AppUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
 
 			return View(userOrders);
 		}
-	}
+
+    }
 }

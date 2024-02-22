@@ -1,0 +1,82 @@
+﻿@model Order
+<style>
+    .order-details {
+        margin-bottom: 20px;
+    }
+
+    .back-to-list {
+        margin-top: 20px;
+    }
+
+    .order-details {
+        margin-bottom: 20px;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+        .order-details .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+    .back-to-list {
+        margin-top: 20px;
+    }
+
+</style>
+@{
+    int count = 0;
+}
+<div class="order-details">
+    <h4>Order Details</h4>
+    <ul>
+        <li><strong>Id:</strong> @Model.Id</li>
+
+        <li>
+            <strong>Status:</strong >
+            <span style="color: @(Model.Status.HasValue ? (Model.Status.Value ? "green" : "red") : "black")"> @(Model.Status.HasValue ? (Model.Status.Value ? "Tamamlandı" : "Legv edildi") : "Gozlemede")</span>
+        </li>
+
+        <li><strong>Address:</strong> @Model.Address</li>
+
+        <li><strong>Total Price:</strong> @Model.TotalPrice</li>
+
+        <li><strong>Purchase At:</strong> @Model.PurchaseAt</li>
+
+        <li><strong>App User Id / UserName:</strong> @Model.AppUserId / @Model.AppUser.UserName</li>
+    </ul>
+
+    @if (Model.BasketItems != null)
+    {
+        <h4>Basket Items</h4>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.BasketItems)
+                {
+                    count++;
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Price</td>
+                        <td>@item.Count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<div class="back-to-list">
+    <a asp-action="Index"  class="btn btn-inverse-dark"> Back to List</a>
+</div>
+

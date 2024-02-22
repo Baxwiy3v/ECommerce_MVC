@@ -10,6 +10,7 @@
             <th>Price</th>
             <th>Satın Alma Tarixi</th>
             <th>Durum</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -20,8 +21,13 @@
                 <td>@order.Address</td>
                 <td>@order.TotalPrice</td>
                 <td>@order.PurchaseAt.ToString("dd/MM/yyyy HH:mm")</td>
-                <td>@(order.Status.HasValue ? (order.Status.Value ? "Gozlemede" : "Legv edildi") : "Tamamlandı")</td>
+                <td style="color: @(order.Status.HasValue ? (order.Status.Value ? "green" : "red") : "black")">
+                    @(order.Status.HasValue ? (order.Status.Value ? "Tamamlandı" : "Legv edildi") : "Gozlemede")
+                </td>
+               
+           
             </tr>
         }
+
     </tbody>
 </table>

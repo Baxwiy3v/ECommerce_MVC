@@ -1,0 +1,24 @@
+﻿@model Order
+
+<h2>Update Order Status</h2>
+
+<div>
+    <h4>Order Id: @Model.Id</h4>
+    <h4 style="color: @(Model.Status.HasValue ? (Model.Status.Value ? "green" : "red") : "black")">
+
+        @(Model.Status.HasValue ? (Model.Status.Value ? "Tamamlandı" : "Legv edildi") : "Gozlemede")
+        
+    </h4>
+</div>
+
+<hr />
+
+<div>
+    <form asp-action="Update" asp-route-id="@Model.Id" method="post">
+        <div class="form-group">
+            <label for="newStatus">New Status:</label>
+            <input type="text" id="newStatus" name="newStatus" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update Status</button>
+    </form>
+</div>

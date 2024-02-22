@@ -2,99 +2,102 @@
 @model HeaderVM
 @inject LayoutService service
 @{
-    Dictionary<string, string> settings = await service.GetSettings();
+	Dictionary<string, string> settings = await service.GetSettings();
 }
 
 <div class="header__top">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-7">
-                <div class="header__top__left">
-                    <p>Free shipping, 30-day return or refund guarantee.</p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-5">
-                <div class="header__top__right">
-                    <div class="header__top__links">
-                        <a href="#">Sign in</a>
-                        <a href="#">FAQs</a>
-                    </div>
-                    <div class="header__top__hover">
-                        <span>Usd <i class="arrow_carrot-down"></i></span>
-                        <ul>
-                            <li>USD</li>
-                            <li>EUR</li>
-                            <li>USD</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-7">
+				<div class="header__top__left">
+					<p>Free shipping, 30-day return or refund guarantee.</p>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-5">
+				<div class="header__top__right">
+					<div class="header__top__links">
+						<a href="#">Sign in</a>
+						<a href="#">FAQs</a>
+					</div>
+					<div class="header__top__hover">
+						<span>Usd <i class="arrow_carrot-down"></i></span>
+						<ul>
+							<li>USD</li>
+							<li>EUR</li>
+							<li>USD</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-3 col-md-3">
-            <div class="header__logo">
-                <a asp-action="Index" asp-controller="Home"><img src="~/img/logo.png" alt=""></a>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-3">
-            <nav class="header__menu mobile-menu">
-                <ul>
+	<div class="row">
+		<div class="col-lg-3 col-md-3">
+			<div class="header__logo">
+				<a asp-action="Index" asp-controller="Home"><img src="~/img/logo.png" alt=""></a>
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-3">
+			<nav class="header__menu mobile-menu">
+				<ul>
 
-                    <li class="active"><a asp-action="Index" asp-controller="Home">Home</a></li>
-                    <li><a asp-action="Index" asp-controller="Shop">Shop</a></li>
-                    <li><a asp-action="About" asp-controller="Home">About</a></li>
-                    <li><a asp-action="Index" asp-controller="Contact">Contacts</a></li>
-                  
-                    <li>
+					<li class="active"><a asp-action="Index" asp-controller="Home">Home</a></li>
+					<li><a asp-action="Index" asp-controller="Shop">Shop</a></li>
+					<li><a asp-action="About" asp-controller="Home">About</a></li>
+					<li><a asp-action="Index" asp-controller="Contact">Contacts</a></li>
 
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Account
-                        </button>
-                        <ul class="dropdown" >
+					<li>
 
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li>
-                                    <a >@User.Identity.Name</a>
-                                </li>
-                                <li>
-                                    <a class="text-danger" asp-action="Logout" asp-controller="Account">Log out</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li>
-                                    <a asp-action="Login" asp-controller="Account" asp-route-returnurl="@Context.Request.Path.Value">Login</a>
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Account
+						</button>
+						<ul class="dropdown">
 
-                                </li>
-                                <li>
+							@if (User.Identity.IsAuthenticated)
+							{
+								<li>
+									<a>@User.Identity.Name</a>
+								</li>
+								<li>
+									<a class="text-danger" asp-action="Logout" asp-controller="Account">Log out</a>
+								</li>
+							}
+							else
+							{
+								<li>
+									<a asp-action="Login" asp-controller="Account" asp-route-returnurl="@Context.Request.Path.Value">Login</a>
 
-                                    <a asp-action="Register" asp-controller="Account">Register</a>
-                                </li>
-                            }
-                        </ul>
-                    </li>
+								</li>
+								<li>
 
-                   
-                  
-                </ul>
-            </nav>
-        </div>
-        <div class="col-lg-3 col-md-3">
-            <div class="header__nav__option">
-                <a href="#" class="search-switch"><img src="~/img/icon/@settings["Search"]" alt=""></a>
-                <a asp-action="Wishlist" asp-controller="Home"><img src="~/img/icon/@settings["Heart"]" alt=""></a>
-                <a asp-action="Index" asp-controller="Basket"><img src="~/img/icon/@settings["Cart"]" alt=""> <span>0</span></a>
-              
-               
-           
-            </div>
-        </div>
+									<a asp-action="Register" asp-controller="Account">Register</a>
+								</li>
+							}
+						</ul>
+					</li>
 
-    </div>  
-    <div class="canvas__open"><i class="fa fa-bars"></i></div>
+
+
+				</ul>
+			</nav>
+		</div>
+		<div class="col-lg-3 col-md-3">
+			<div class="header__nav__option">
+
+				<a asp-action="Wishlist" asp-controller="Home" class="text-dark"><h5><i class="fa fa-heart"></i></h5></a>
+				<a asp-action="Index" asp-controller="Basket" class="text-dark"><h5><i class="fa fa-shopping-cart"></i></h5> </a>
+				<a asp-action="Index" asp-controller="Order" class="text-dark"><h5><i class="fa fa-history"></i> Sifarişler</h5></a>
+				
+				
+
+
+			</div>
+
+		</div>
+
+	</div>
+	<div class="canvas__open"><i class="fa fa-bars"></i></div>
 </div>
 

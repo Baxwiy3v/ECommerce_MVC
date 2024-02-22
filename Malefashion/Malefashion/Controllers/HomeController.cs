@@ -128,24 +128,35 @@ public class HomeController : Controller
 		};
 		return View(vm);
 	}
-
 	private double CalculateAverageRating(int productId)
 	{
-		var ratings = _context.Ratings.Where(r => r.ProductId == productId).ToList();
+		
+		var ratingsForProduct = _context.Ratings.Where(r => r.ProductId == productId).ToList();
 
-		if (ratings.Count == 0)
+		if (ratingsForProduct.Count > 0)
 		{
-			return 0; 
-		}
+		
+			int totalStars = 0;
+			int numberOfRatings = ratingsForProduct.Count;
 
-		var totalStars = 0;
-		foreach (var rating in ratings)
+		
+			foreach (var rating in ratingsForProduct)
+			{
+				totalStars += rating.Stars;
+			}
+
+			
+			double averageRating = (double)totalStars / numberOfRatings;
+
+			return averageRating;
+		}
+		else
 		{
-			totalStars += rating.Stars;
+			
+			return 0;
 		}
-
-		return (double)totalStars / ratings.Count;
 	}
+
 
 
 
