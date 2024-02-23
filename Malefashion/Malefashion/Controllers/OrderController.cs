@@ -1,4 +1,6 @@
 ﻿using Malefashion.DAL;
+using Malefashion.Models;
+using Malefashion.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,13 +17,32 @@ namespace Malefashion.Controllers
         {
 			_context = context;
 		}
-		public async Task<IActionResult>  Index()
-		{
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 5)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			var userOrders =await _context.Orders.Where(o => o.AppUserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
+            var userOrders = await _context.Orders
+                                            .Where(o => o.AppUserId == userId)
+                                            .Skip((page - 1) * pageSize)
+                                            .Take(pageSize)
+                                            .ToListAsync();
 
-			return View(userOrders);
-		}
+            var totalOrdersCount = await _context.Orders
+                                                  .Where(o => o.AppUserId == userId)
+                                                  .CountAsync();
+
+            var totalPages = Math.Ceiling((double)totalOrdersCount / pageSize);
+
+            var paginationVM = new PaginationVM<Order>
+            {
+                TotalPage = totalPages,
+                CurrentPage = page,
+                Items = userOrders
+            };
+
+            return View(paginationVM);
+        }
+
 
     }
 }

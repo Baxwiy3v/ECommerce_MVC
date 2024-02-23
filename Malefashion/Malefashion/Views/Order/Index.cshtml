@@ -1,33 +1,69 @@
-﻿@model List<Order>
+﻿@model PaginationVM<Order>
 
-<h2>Sifariş keçmişi</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Sifariş Nomresi</th>
-            <th>Addrres</th>
-            <th>Price</th>
-            <th>Satın Alma Tarixi</th>
-            <th>Durum</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model)
-        {
-            <tr>
-                <td>@order.Id</td>
-                <td>@order.Address</td>
-                <td>@order.TotalPrice</td>
-                <td>@order.PurchaseAt.ToString("dd/MM/yyyy HH:mm")</td>
-                <td style="color: @(order.Status.HasValue ? (order.Status.Value ? "green" : "red") : "black")">
-                    @(order.Status.HasValue ? (order.Status.Value ? "Tamamlandı" : "Legv edildi") : "Gozlemede")
-                </td>
-               
-           
-            </tr>
-        }
+<div class="col-lg-12 grid-margin stretch-card">
+	<div class="card">
+		<div class="card-body">
 
-    </tbody>
-</table>
+			<h2>Sifariş keçmişi</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Sifariş Nomresi</th>
+						<th>Addrres</th>
+						<th>Price</th>
+						<th>Satın Alma Tarixi</th>
+						<th>Durum</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var order in Model.Items)
+					{
+						<tr>
+							<td>@order.Id</td>
+							<td>@order.Address</td>
+							<td>@order.TotalPrice</td>
+							<td>@order.PurchaseAt.ToString("dd/MM/yyyy HH:mm")</td>
+							<td style="color: @(order.Status.HasValue ? (order.Status.Value ? "green" : "red") : "black")">
+								@(order.Status.HasValue ? (order.Status.Value ? "Tamamlandı" : "Legv edildi") : "Gozlemede")
+							</td>
+
+
+						</tr>
+					}
+
+				</tbody>
+			</table>
+			
+
+		</div>
+		<nav style="margin: auto; width: 40%;">
+			<div class="row justify-content-center">
+				<div class="col">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+								<a class="page-link" href="?page=@(Model.CurrentPage - 1)" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							@for (int i = 1; i <= Model.TotalPage; i++)
+							{
+								<li class="page-item @(i == Model.CurrentPage ? "disabled" : "")">
+									<a class="page-link" href="?page=@i">@i</a>
+								</li>
+							}
+							<li class="page-item @(Model.CurrentPage == Model.TotalPage ? "disabled" : "")">
+								<a class="page-link" href="?page=@(Model.CurrentPage + 1)" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</nav>
+
+	</div>
+</div>

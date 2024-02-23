@@ -2,6 +2,7 @@
 using Malefashion.Interfaces;
 using Malefashion.Models;
 using Malefashion.Models.ViewModels;
+using Malefashion.Utilities.Exceptions;
 using Malefashion.ViewComponents;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -76,14 +77,18 @@ namespace Malefashion.Controllers
 
 		public async Task<IActionResult> AddBasket(int id)
 		{
-			if (id <= 0) return BadRequest();
+         
+
+            if (id <= 0) throw new WrongRequestException("Your request is wrong");
+
 			var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-			if (product is null) return NotFound();
+
+			if (product is null) throw new NotFoundException("There is no such product");
 
 			if (User.Identity.IsAuthenticated)
 			{
 				AppUser user = await _userManager.Users.Include(u => u.BasketItems.Where(bi => bi.OrderId == null)).FirstOrDefaultAsync(u => u.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value);
-				if (user is null) return NotFound();
+				if (user is null) throw new NotFoundException("There is no such user");
 				var basketItem = user.BasketItems.FirstOrDefault(bi => bi.ProductId == id);
 				if (basketItem is null)
 				{

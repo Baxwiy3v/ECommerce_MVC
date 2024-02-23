@@ -39,49 +39,21 @@ namespace Malefashion.Areas.Admin.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            if (id <=0)
             {
-                return NotFound();
-            }
+				throw new WrongRequestException("Your request is wrong");
+			}
 
             var order = await _context.Orders.Include(b => b.BasketItems).ThenInclude(p => p.Product).Include(o => o.AppUser).FirstOrDefaultAsync(m => m.Id == id);
+
             if (order == null)
             {
-                return NotFound();
-            }
+				throw new NotFoundException("There is no such order");
+			}
 
             return View(order);
         }
 
-        public async Task<IActionResult> Delete(int id, bool confirim)
-        {
-            if (id <= 0) throw new WrongRequestException("Your request is wrong");
-
-            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
-
-            if (order == null)
-            {
-                throw new NotFoundException("There is no such Order");
-            }
-            
-
-            if (confirim)
-            {
-
-                _context.Orders.Remove(order);
-           
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-
-                return View(order);
-            }
-
-        }
-        // GET: Order/UpdateStatus/5
         public async Task<IActionResult> Update(int id)
         {
             if (id <= 0)
@@ -96,16 +68,10 @@ namespace Malefashion.Areas.Admin.Controllers
                 throw new NotFoundException("There is no such Order");
             }
 
-            Order existed =new Order 
-            { 
-               
-                Status = order.Status
-            };
 
             return View(order);
         }
 
-        // POST: Order/UpdateStatus/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(int id, bool? newStatus)

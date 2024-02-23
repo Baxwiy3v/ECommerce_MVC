@@ -153,6 +153,7 @@ public class BannerController : Controller
 
 			return View(Bannervm);
 		}
+		
 
 
 		if (Bannervm.Photo is not null)

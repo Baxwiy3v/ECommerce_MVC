@@ -27,12 +27,14 @@ public class HomeController : Controller
 		List<Banner> banners = await _context.Banners.OrderBy(s => s.Order).ToListAsync();
 		List<Category> categories = await _context.Categories.Include(c => c.Products).Where(c => c.Products.Count > 0).ToListAsync();
 		List<Blog> blogs = await _context.Blogs.ToListAsync();
+	
 		HomeVM vm = new()
 		{
 			Slides = slides,
 			Categories = categories,
 			Banners = banners,
-			Blogs = blogs
+			Blogs = blogs,
+			
 
 		};
 		return View(vm);

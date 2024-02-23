@@ -166,8 +166,8 @@
 
 					<div class="d-flex mb-3">
 						<div class="rating-form">
-							
-							
+
+
 
 							<span class="title">Comment :</span>
 							<form asp-action="AddComment" asp-controller="Home" method="post" onsubmit="return validateForm()">
@@ -175,12 +175,14 @@
 								<textarea name="content" rows="4"></textarea><br />
 								<button class="btn btn-outline-primary" type="submit">Submit</button>
 
-								<input type="hidden" asp-for="Comments"  />
+								<input type="hidden" asp-for="Comments" />
 
-								<span asp-validation-for="Comments"></span>
+								<span class="text-danger" asp-validation-for="Comments"></span>
+
+
 							</form>
 
-							
+
 
 							<form asp-action="AddRating" asp-controller="Home" method="post">
 								<input type="hidden" name="productId" value="@Model.Product.Id" />
@@ -193,20 +195,30 @@
 									<option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
 								</select>
 							</form>
-						
-						
+
+
 						</div>
-					
+
 
 					</div>
-					@if (Model.Product.AverageRating > 0)
+					@{
+						int? numberOfStars = Model.Product.AverageRating != null ? (int)Model.Product.AverageRating : 0;
+					}
+
+					@if (numberOfStars > 0)
 					{
-						<span class="title">Average: @Model.Product.AverageRating</span>
+						<span class="title">AverageRating: </span>
+
+						@for (int i = 0; i < numberOfStars; i++)
+						{
+							<span class="star-select">&#9733;</span>
+						}
 					}
 					else
 					{
 						<p class="text-danger">No ratings yet.</p>
 					}
+
 				</div>
 			</div>
 		</div>

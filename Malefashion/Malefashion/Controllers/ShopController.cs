@@ -19,8 +19,6 @@ public class ShopController : Controller
 	{
 
 		
-
-
 		IQueryable<Product> queryable = _context.Products;
 
 		switch (order)
