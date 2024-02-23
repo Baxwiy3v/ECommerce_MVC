@@ -28,12 +28,14 @@ public class HomeController : Controller
 		List<Category> categories = await _context.Categories.Include(c => c.Products).Where(c => c.Products.Count > 0).ToListAsync();
 		List<Blog> blogs = await _context.Blogs.ToListAsync();
 	
+	
 		HomeVM vm = new()
 		{
 			Slides = slides,
 			Categories = categories,
 			Banners = banners,
 			Blogs = blogs,
+			
 			
 
 		};
